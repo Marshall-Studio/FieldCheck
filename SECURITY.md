@@ -14,7 +14,7 @@ Use GitHub’s **private vulnerability reporting** for this repository:
    (direct path: `/Marshall-Studio/FieldCheck/security/advisories/new` on github.com).
 2. Describe the issue, impact, and reproduction steps with **synthetic** examples only.
 
-Ordinary product feedback (bugs and ideas) belongs on the public FieldCheck website feedback form once it is linked — not through private security channels.
+Ordinary product feedback (bugs and ideas) belongs on the public FieldCheck website **Send feedback** link (Tally) — not through private security channels.
 
 We aim to acknowledge security reports within a few business days.
 

@@ -14,7 +14,7 @@ This document records what was inspected, what was verified in code/tests/browse
 | DOM rendering | All CSV/UI string sinks in `src/main.ts` use `textContent` / `createElement` (no `innerHTML` for file data) |
 | Exports | `safeCsvCell` / `toCsv` formula neutralization |
 | Storage | `localStorage` keys for column prefs + theme |
-| Network | Sample `fetch('./sample-data/…')` and GitHub Issues/security links only |
+| Network | Sample `fetch('./sample-data/…')` only; feedback is a plain `https://tally.so/…` link (no embed script) |
 | Host prep | Cloudflare Pages `_headers`, build copy into `site/` |
 
 ## Findings

@@ -18,7 +18,7 @@
 | QA-18b | Theme labels + motion | Light shows Dark mode+moon; dark shows Light mode+sun; ~220ms transition; reduced-motion honored | Pass |
 | QA-19 | Security headers on built site | `_headers` present with CSP, DENY framing, nosniff, referrer | Pass — local build + header tests |
 | QA-20 | Theme storage isolation | Theme key stores only light/dark — never CSV contents | Pass |
-| QA-21 | Public feedback control | Single Send feedback; no Issues/vuln buttons; disabled until Tally URL set | Pass — URL empty until publish |
+| QA-21 | Public feedback control | Single Send feedback opens https://tally.so/r/68aLbP in a new tab; no Issues/vuln buttons | Pass — Tally connected |
 
 Note: The default sample supports both validation and comparison; maintenance-errors.csv demonstrates why an ambiguous duplicate key must block reconciliation.
 

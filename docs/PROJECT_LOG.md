@@ -61,6 +61,13 @@ Creator review U3-01–U3-07: preview wording, clutter, awkward results scrollin
 - Git author privacy: historical commits use a personal mailbox; future commits should switch to GitHub `noreply` (no history rewrite without approval).
 - Not deployed — connect Tally URL and confirm email privacy steps first.
 
+## Tally feedback connected — 2026-09-28
+
+- Set `FEEDBACK_FORM_URL` to https://tally.so/r/68aLbP (external link only; CSP unchanged).
+- Privacy docs disclose Tally; CSV datasets are not sent with feedback.
+- Repo-local Git author set to GitHub noreply for future commits (history not rewritten).
+- Not deployed — Cloudflare Pages release still awaiting final approval.
+
 ## Release / bug log template
 
 Date / release:

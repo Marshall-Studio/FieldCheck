@@ -1,9 +1,8 @@
 /**
  * Public visitor feedback form (Tally).
- * Leave empty until the published form URL is ready — the Send feedback control stays disabled.
- * Do not invent a URL. Use a normal external link (no Tally embed script).
+ * Use a normal external link (no Tally embed script) so CSP stays `'self'` for scripts.
  */
-export const FEEDBACK_FORM_URL = '';
+export const FEEDBACK_FORM_URL = 'https://tally.so/r/68aLbP';
 
 /** Suggested Tally form fields (configure in Tally; not enforced in this static site). */
 export const FEEDBACK_FORM_EXPECTATIONS = [
