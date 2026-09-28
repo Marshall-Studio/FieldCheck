@@ -30,7 +30,7 @@ export function validate(dataset: Dataset, options: ValidationOptions = {}): Val
     }
     for (const col of numeric) {
       const raw = val(row, col).trim();
-      if (raw && !Number.isFinite(Number(raw))) issues.push({ code: 'INVALID_NUMBER', row: row.line, column: col, value: raw, message: 'Expected a finite number.' });
+      if (raw && !Number.isFinite(Number(raw))) issues.push({ code: 'INVALID_NUMBER', row: row.line, column: col, value: raw, message: 'This value is not a usable number (for example, text like “unknown” fails a numeric check).' });
     }
     const signature = JSON.stringify(dataset.columns.map(c => val(row, c)));
     if (seenRows.has(signature)) issues.push({ code: 'DUPLICATE_ROW', row: row.line, column: '(whole row)', value: '', message: `Entire row repeats line ${seenRows.get(signature)}.` });

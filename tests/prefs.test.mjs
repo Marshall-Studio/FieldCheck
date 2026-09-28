@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { columnFingerprint, loadColumnPrefs, saveColumnPrefs, readPrefsStore } from '../site/assets/prefs.js';
+import { columnFingerprint, loadColumnPrefs, saveColumnPrefs, readPrefsStore, clearColumnPrefs, clearAllColumnPrefs } from '../site/assets/prefs.js';
 
 function memoryStorage(seed = {}) {
   const map = new Map(Object.entries(seed));
@@ -24,6 +24,16 @@ test('remembers approved column prefs only for matching headers', () => {
     numericColumns: ['cost']
   });
   assert.equal(loadColumnPrefs(['id', 'name'], storage), undefined);
+});
+
+test('clears saved preferences', () => {
+  const storage = memoryStorage();
+  saveColumnPrefs(['id'], { keyColumn: 'id', requiredColumns: [], numericColumns: [] }, storage);
+  clearColumnPrefs(['id'], storage);
+  assert.equal(loadColumnPrefs(['id'], storage), undefined);
+  saveColumnPrefs(['id'], { keyColumn: 'id', requiredColumns: [], numericColumns: [] }, storage);
+  clearAllColumnPrefs(storage);
+  assert.equal(loadColumnPrefs(['id'], storage), undefined);
 });
 
 test('ignores corrupt prefs JSON', () => {

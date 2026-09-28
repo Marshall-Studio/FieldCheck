@@ -29,6 +29,14 @@ Creator hands-on review (U-01–U-05): sample load was easy to miss, spreadsheet
 - Kept browser-local processing, CSV exports, and injection/`textContent` protections.
 - Not deployed — awaiting another hands-on walkthrough.
 
+## Investigation UX (second review) — 2026-09-28
+
+Creator review U2-01–U2-09: findings were hard to map back to a file/record, native “No file chosen” misled after sample load, and next steps were unclear.
+- Active filename cards + hidden native picker; Open full preview (paged/searchable).
+- Findings include file, record ID, CSV line vs data row, value, why; View affected record highlights the cell (WO-1007 sample path).
+- Operation-specific summaries/stats, expandable added/removed values, softer numeric wording, clearer settings + save/clear prefs, next-steps panel.
+- Not deployed — awaiting WO-1007 hands-on confirmation.
+
 ## Release / bug log template
 
 Date / release:

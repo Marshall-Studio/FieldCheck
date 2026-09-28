@@ -1,10 +1,11 @@
 import type { Issue, IssueCode, ComparisonResult } from './types.js';
+import type { FindingContext } from './inspect.js';
 
 const WHY: Record<IssueCode, string> = {
   MISSING_REQUIRED: 'Blank required values can break imports, reports, and handoffs to other systems.',
   DUPLICATE_KEY: 'Two records sharing an ID make merges and comparisons ambiguous — the tool cannot safely pick one.',
   DUPLICATE_ROW: 'Identical full rows often mean accidental double entry or a bad export.',
-  INVALID_NUMBER: 'Non-numeric text in a numeric field can fail totals, filters, and downstream calculations.'
+  INVALID_NUMBER: 'Text in a numeric column can break totals, filters, and calculations in spreadsheets or imports.'
 };
 
 export function whyIssueMatters(code: IssueCode): string {
@@ -26,9 +27,12 @@ export function plainIssueTitle(issue: Issue): string {
   }
 }
 
-export function plainIssueDetail(issue: Issue): string {
+export function plainIssueDetail(issue: Issue, context?: FindingContext): string {
   const shown = issue.value === '' ? '(blank)' : issue.value;
-  return `CSV line ${issue.row} · column “${issue.column}” · value ${shown}. ${issue.message}`;
+  const file = context ? `File “${context.fileName}”. ` : '';
+  const id = context?.recordId ? `Record ID ${context.recordId}. ` : '';
+  const dataRow = context?.dataRowNumber ? `Data row ${context.dataRowNumber}. ` : '';
+  return `${file}${id}${dataRow}CSV line ${issue.row} · column “${issue.column}” · value ${shown}. ${issue.message}`;
 }
 
 export interface ComparisonSummaryText {
