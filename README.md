@@ -22,11 +22,11 @@ npm run dev
 
 Open **http://127.0.0.1:5173/**. If you change `.ts` files, run `npm run build` again and refresh the page. `npm test` builds the website and runs the tests. A TypeScript compiler dependency is included for reproducibility; the published site itself has no third-party runtime libraries.
 
-`site/` is generated; don't edit it directly. Source lives in `src/`, HTML in `index.html`, styles in `styles.css`. To deploy to Cloudflare Pages or another static host, build with `npm run build` and publish the **site/** folder. No paid hosting is required initially; check the hosting provider's then-current terms.
+`site/` is generated; don't edit it directly. Source lives in `src/`, HTML in `index.html`, styles in `styles.css`. To deploy to Cloudflare Pages or another static host, build with `npm run build` and publish the **site/** folder. See [Deployment](docs/DEPLOYMENT.md) for host settings and the pre-launch checklist. No paid hosting is required initially; check the hosting provider's then-current terms.
 
-## Configure feedback before public launch
+## Feedback
 
-Create the GitHub repository under your account. In `src/main.ts`, replace the empty `feedbackUrl` with your actual verified repository's new-issue URL, build, and check the button. Do not publish a guessed/broken link or include personal email without deciding to expose it.
+The app links to [GitHub Issues](https://github.com/Marshall-Studio/FieldCheck/issues/new) for bug reports and feature ideas. Do not include confidential CSV contents in an issue.
 
 ## Known limits and honest resume framing
 

@@ -1,5 +1,6 @@
 import { parseCsv, CsvError, LIMITS, toCsv } from './csv.js';
 import { validate, compareDatasets, comparisonReportRows } from './analysis.js';
+import { countLabel } from './format.js';
 import type { Dataset, Issue, ValidationResult, ComparisonResult } from './types.js';
 
 const currentInput = document.querySelector<HTMLInputElement>('#current-file')!;
@@ -45,11 +46,18 @@ function renderStats(items: Array<[string,string]>): void {
     stats.append(box);
   }
 }
+function emptyRow(columns: number, message: string): HTMLTableRowElement {
+  const row = el('tr');
+  const cell = el('td', message, 'empty-cell');
+  cell.colSpan = columns;
+  row.append(cell);
+  return row;
+}
 function renderEmpty(): void {
   clear(issueBody); clear(compareBody);
-  const issueRow = el('tr'); issueRow.append(el('td', 'Load a dataset and run validation.', 'empty-cell')); issueBody.append(issueRow);
-  const compareRow = el('tr'); compareRow.append(el('td', 'Load a baseline and current dataset to compare.', 'empty-cell')); compareBody.append(compareRow);
-  renderStats([['Current records','—'],['Issue rows','—'],['Added','—'],['Changed','—'],['Removed','—']]);
+  issueBody.append(emptyRow(5, 'Load a dataset and run validation.'));
+  compareBody.append(emptyRow(4, 'Load a baseline and current dataset to compare.'));
+  renderStats([['Current records','—'],['Rows with issues','—'],['Added','—'],['Changed','—'],['Removed','—']]);
 }
 function controlGroup(container: HTMLElement, columns: string[], type: string): void {
   clear(container);
@@ -87,12 +95,22 @@ function updateDataset(kind: 'current' | 'baseline', data: Dataset | undefined):
   renderEmpty();
 }
 async function readFile(file: File, kind: 'current'|'baseline'): Promise<void> {
-  if (file.size > LIMITS.bytes) { setStatus('The file exceeds the 8 MB V1 limit.', true); return; }
+  if (file.size > LIMITS.bytes) {
+    const previous = kind === 'current' ? current : baseline;
+    setStatus(previous
+      ? `The file exceeds the 8 MB V1 limit. Previous ${kind} dataset was kept.`
+      : 'The file exceeds the 8 MB V1 limit.', true);
+    return;
+  }
   try {
     const dataset = parseCsv(await file.text(), file.name);
     updateDataset(kind, dataset);
     setStatus(`Loaded ${dataset.name} locally. Its contents are not uploaded to a server.`);
-  } catch (e) { setStatus(e instanceof Error ? e.message : 'Could not read this file.', true); }
+  } catch (e) {
+    const detail = e instanceof Error ? e.message : 'Could not read this file.';
+    const previous = kind === 'current' ? current : baseline;
+    setStatus(previous ? `${detail} Previous ${kind} dataset was kept.` : detail, true);
+  }
 }
 currentInput.addEventListener('change', () => { const file = currentInput.files?.[0]; if (file) void readFile(file,'current'); });
 baselineInput.addEventListener('change', () => { const file = baselineInput.files?.[0]; if (file) void readFile(file,'baseline'); });
@@ -122,10 +140,10 @@ validationButton.addEventListener('click', () => {
     issuesButton.disabled = false;
     const c = lastComparison;
     renderStats([
-      ['Current records',String(lastValidation.rowCount)],['Issue rows',String(lastValidation.issueRows)],
+      ['Current records',String(lastValidation.rowCount)],['Rows with issues',String(lastValidation.issueRows)],
       ['Added', c ? String(c.added.length) : '—'],['Changed',c ? String(c.changed.length) : '—'],['Removed',c ? String(c.removed.length) : '—']
     ]);
-    setStatus(`Validation completed: ${lastValidation.issues.length} findings in ${lastValidation.issueRows} rows.`);
+    setStatus(`Validation completed: ${countLabel(lastValidation.issues.length, 'finding')} in ${countLabel(lastValidation.issueRows, 'row')}.`);
   } catch (e) { setStatus(e instanceof Error ? e.message : 'Validation failed.', true); }
 });
 
@@ -150,7 +168,7 @@ compareButton.addEventListener('click', () => {
     compareDownloadButton.disabled = false;
     const v = lastValidation;
     renderStats([
-      ['Current records',String(current.rows.length)],['Issue rows',v ? String(v.issueRows) : '—'],
+      ['Current records',String(current.rows.length)],['Rows with issues',v ? String(v.issueRows) : '—'],
       ['Added',String(lastComparison.added.length)],['Changed',String(lastComparison.changed.length)],['Removed',String(lastComparison.removed.length)]
     ]);
     setStatus('Comparison completed. Differences are matched by record ID, not row position.');
@@ -170,7 +188,10 @@ compareDownloadButton.addEventListener('click', () => {
   download('fieldcheck-comparison.csv',toCsv(comparisonReportRows(lastComparison)));
 });
 
-document.querySelector<HTMLButtonElement>('#load-sample')!.addEventListener('click', async () => {
+const loadSampleButton = document.querySelector<HTMLButtonElement>('#load-sample')!;
+loadSampleButton.addEventListener('click', async () => {
+  loadSampleButton.disabled = true;
+  setStatus('Loading sample datasets…');
   try {
     const [a,b] = await Promise.all([
       fetch('./sample-data/maintenance-before.csv').then(r => { if(!r.ok)throw new Error('Could not load baseline sample.');return r.text(); }),
@@ -183,5 +204,6 @@ document.querySelector<HTMLButtonElement>('#load-sample')!.addEventListener('cli
     for (const cb of numericFields.querySelectorAll<HTMLInputElement>('input')) if(['cost','hours'].includes(cb.value)) cb.checked=true;
     setStatus('Sample loaded. Select “Run validation” or “Compare datasets.”');
   } catch(e) { setStatus(e instanceof Error ? e.message : 'Sample could not load.', true); }
+  finally { loadSampleButton.disabled = false; }
 });
 renderEmpty();

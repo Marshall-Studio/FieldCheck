@@ -14,6 +14,12 @@
 - Initialized an independent Git repo (separate from Hollowfall) and published to https://github.com/Marshall-Studio/FieldCheck.
 - Set feedback Issues URL to the live repository.
 
+## Phase 1 manual QA — 2026-09-28
+
+- Browser QA of sample workflow at http://127.0.0.1:5173/: validation found blank `property` + invalid `cost`; comparison reported 2 added / 1 removed / 2 changed; exports matched on-screen results.
+- Fixed usability defects D-01–D-07 (plural status text, stats label, feedback copy, failed-load messaging, mobile table wrapping, empty-row colspan, sample loading status). See `docs/QA_TEST_PLAN.md`.
+- Added `countLabel` helper, sample-workflow regression test, and `docs/DEPLOYMENT.md` (prepared; not deployed yet).
+
 ## Release / bug log template
 
 Date / release:
