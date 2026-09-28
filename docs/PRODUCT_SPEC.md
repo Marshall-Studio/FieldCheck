@@ -1,6 +1,6 @@
 # FieldCheck — V1 Product Specification
 
-**Status:** Working first build, portfolio-led. **Target:** a truly useful public CSV utility with no required accounts or paid services.
+**Status:** Working first build. **Target:** a useful public CSV utility with no required accounts or paid services.
 
 ## User problem
 
@@ -28,8 +28,8 @@ People have an export and need a clear, reproducible answer to two questions: �
 - Unique ID must be present in both files; key matching trims surrounding ID whitespace and is otherwise case-sensitive.
 - CSV headers are matched case-insensitively; non-key comparison values are compared exactly (including whitespace).
 - No schema transformation/mapping, multi-key matching, fuzzy matching, streaming of huge files, saved accounts, collaborative review, or persistent user data.
-- “Exceptions” are currently findings in a report, not a hosted case-management queue; avoid claiming otherwise on a resume.
-- No server, database, Python, or SQL in the public V1. BugSift is separate evidence of those skills. A future SQL-based version must be genuinely implemented before claiming it.
+- “Exceptions” are currently findings in a report, not a hosted case-management queue.
+- No server, database, Python, or SQL in the public V1. A future SQL-based version should be documented and tested if introduced.
 
 ## Privacy / security
 
