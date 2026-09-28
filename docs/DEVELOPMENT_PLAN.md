@@ -24,14 +24,14 @@
 - [ ] Deploy `site/` as a static website; verify a real browser can load it (guide in `docs/DEPLOYMENT.md` — not deployed yet).
 - [ ] Record only observed outcomes: tests, real usage and reported feedback. Never invent metrics.
 
-## Phase 3 — Interview readiness
+## Phase 3 — Technical walkthrough and maintainability
 
 - [ ] Explain parser quote state, duplicate-key policy, and CSV injection guard.
 - [ ] Walk through `validate` and `compareDatasets` with sample inputs.
 - [ ] Reproduce a bug, write expected/actual result, patch, and regression-test it.
 - [ ] Explain why V1 intentionally has no database/API and describe when you would add one.
-- [ ] Refresh QA/Data Quality resume versions based on verified results.
+- [ ] Update public documentation and release notes based on verified results.
 
 ## Potential upgrade for deeper SQL/data evidence
 
-If primary job ads repeatedly require SQL and data reconciliation, implement a separate *genuinely working* SQLite/DuckDB-backed processing path or a measured Python/FastAPI integration. Do not duplicate logic gratuitously or claim it exists before completing and testing it.
+If real use cases require SQL-backed analysis, implement and test a SQLite/DuckDB-backed processing path or a measured Python/FastAPI integration. Do not duplicate logic gratuitously or document capabilities before they exist.
