@@ -13,7 +13,7 @@ FieldCheck is a static website. After `npm run build`, publish the generated **`
    - **Build output directory:** `site`
    - **Node version:** `22`
 4. Confirm `site/_headers` is present in the build output (security headers for CSP, clickjacking protection, MIME sniffing protection, referrer policy).
-5. Deploy. Confirm `https://<your-project>.pages.dev` loads, sample data works, response headers match `_headers`, and the feedback button opens GitHub Issues.
+5. Deploy. Confirm `https://<your-project>.pages.dev` loads, sample data works, response headers match `_headers`, and **Send feedback** opens the published Tally form (after `FEEDBACK_FORM_URL` is set).
 
 #### Optional Cloudflare Web Analytics (off by default)
 
@@ -39,10 +39,21 @@ Until those steps are done, keep analytics **off**. A strict `'self'` CSP is int
 
 - [ ] Manual sample QA still passes on the public URL (validation + comparison + exports + light/dark).
 - [ ] Live response includes CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and a referrer policy.
-- [ ] Feedback link opens GitHub Issues templates; security link opens private advisories.
+- [ ] Feedback: set `FEEDBACK_FORM_URL` in `src/feedback.ts` to the published HTTPS Tally URL; rebuild; confirm the button opens the form and privacy copy mentions Tally.
+- [ ] Feedback link opens the Tally form (not GitHub Issues); no vulnerability button on the public site.
 - [ ] Web Analytics remains off unless CSP and privacy copy were updated together.
 - [ ] No accounts, databases, paid APIs, or file-upload backend were added.
 - [ ] README links to the live URL once it exists.
 - [ ] Review `docs/SECURITY_REVIEW.md` and confirm residual risks are acceptable.
+- [ ] Confirm commit authorship uses a GitHub `noreply` address for future commits (see privacy notes in the latest project log).
 
 Do not claim a public site is live until this checklist is verified in a real browser.
+
+## Connecting the Tally feedback form
+
+1. In Tally, create a form with: Feedback type (Bug report / Feature idea / Other), required Description, optional Email for replies only, no mandatory sign-in, no file-upload field for spreadsheets.
+2. Publish the form and copy its **https** share URL.
+3. Set `FEEDBACK_FORM_URL` in `src/feedback.ts` to that URL (keep it empty until ready).
+4. Rebuild (`npm run build`) and verify **Send feedback** appears and opens the form in a new tab.
+5. Update privacy wording if needed (in-app Privacy details already disclose an external form when linked).
+6. Commit, push, then deploy.

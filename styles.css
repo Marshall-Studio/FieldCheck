@@ -176,11 +176,22 @@ a{color:inherit}
 .brand-mark{display:inline-grid;place-items:center;width:33px;height:33px;border-radius:9px;background:var(--brand-mark-bg);color:var(--brand-mark-text)}
 .version{font-size:10px;letter-spacing:.6px;color:var(--header-muted);border:1px solid var(--header-chip-border);padding:4px 5px;border-radius:4px}
 .privacy-pill{border:1px solid var(--privacy-border);background:var(--privacy-bg);padding:8px 12px;border-radius:30px;font-size:12px;color:var(--privacy-text)}
-.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid var(--theme-toggle-border);background:var(--theme-toggle-bg);color:var(--theme-toggle-text);padding:0}
-.theme-toggle svg{width:18px;height:18px;display:block}
-.theme-toggle .icon-moon{display:none}
-html[data-theme="dark"] .theme-toggle .icon-sun{display:none}
-html[data-theme="dark"] .theme-toggle .icon-moon{display:block}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;border-radius:999px;border:1px solid var(--theme-toggle-border);background:var(--theme-toggle-bg);color:var(--theme-toggle-text);padding:8px 14px 8px 12px;font-size:12px;font-weight:750;white-space:nowrap}
+.theme-toggle svg{width:16px;height:16px;display:block;flex:0 0 auto}
+.theme-toggle .icon-sun{display:none}
+.theme-toggle .icon-moon{display:block}
+html[data-theme="dark"] .theme-toggle .icon-moon{display:none}
+html[data-theme="dark"] .theme-toggle .icon-sun{display:block}
+.theme-toggle-label{line-height:1}
+html.theme-transitions,html.theme-transitions body,html.theme-transitions .site-header,html.theme-transitions .panel,html.theme-transitions .button,html.theme-transitions .workflow-card,html.theme-transitions .upload-box,html.theme-transitions .active-file,html.theme-transitions .preview-block,html.theme-transitions .summary-card,html.theme-transitions .stat,html.theme-transitions .table-wrap,html.theme-transitions th,html.theme-transitions td,html.theme-transitions .modal-dialog,html.theme-transitions .help-details,html.theme-transitions .status,html.theme-transitions .load-banner,html.theme-transitions .suggest-banner,html.theme-transitions .footer-panel,html.theme-transitions .theme-toggle,html.theme-transitions .privacy-pill,html.theme-transitions .field select,html.theme-transitions .modal-search input,html.theme-transitions .checks,html.theme-transitions .highlight-note,html.theme-transitions .badge,html.theme-transitions .record-inspect{
+  transition:background-color 220ms ease,color 220ms ease,border-color 220ms ease,box-shadow 220ms ease,outline-color 220ms ease,fill 220ms ease,stroke 220ms ease
+}
+@media (prefers-reduced-motion:reduce){
+  html.theme-transitions,html.theme-transitions body,html.theme-transitions .site-header,html.theme-transitions .panel,html.theme-transitions .button,html.theme-transitions .workflow-card,html.theme-transitions .upload-box,html.theme-transitions .active-file,html.theme-transitions .preview-block,html.theme-transitions .summary-card,html.theme-transitions .stat,html.theme-transitions .table-wrap,html.theme-transitions th,html.theme-transitions td,html.theme-transitions .modal-dialog,html.theme-transitions .help-details,html.theme-transitions .status,html.theme-transitions .load-banner,html.theme-transitions .suggest-banner,html.theme-transitions .footer-panel,html.theme-transitions .theme-toggle,html.theme-transitions .privacy-pill,html.theme-transitions .field select,html.theme-transitions .modal-search input,html.theme-transitions .checks,html.theme-transitions .highlight-note,html.theme-transitions .badge,html.theme-transitions .record-inspect{
+    transition:none !important
+  }
+  .button:not(:disabled):hover{transform:none}
+}
 .hero{padding:48px 0 28px}
 .eyebrow,.step{font-size:11px;letter-spacing:1.7px;font-weight:850;color:var(--accent-deep)}
 .hero h1{letter-spacing:-2.9px;line-height:1.04;font-size:clamp(42px,6.7vw,68px);margin:14px 0 20px;color:var(--text-strong)}

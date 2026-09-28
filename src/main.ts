@@ -25,6 +25,7 @@ import {
   writeStoredTheme,
   type ThemeMode
 } from './theme.js';
+import { FEEDBACK_FORM_URL, isFeedbackFormConfigured } from './feedback.js';
 import type { Dataset, DataRow, Issue, ValidationResult, ComparisonResult, ComparisonRow, CellDifference } from './types.js';
 
 type WorkflowMode = 'check' | 'compare';
@@ -92,21 +93,48 @@ const modalRecordView = document.querySelector<HTMLElement>('#modal-record-view'
 const resultsHeading = document.querySelector<HTMLElement>('#results-heading')!;
 const comparisonHeading = document.querySelector<HTMLElement>('#comparison-heading')!;
 const feedback = document.querySelector<HTMLAnchorElement>('#feedback-link')!;
+const feedbackStatus = document.querySelector<HTMLElement>('#feedback-status')!;
 const themeToggle = document.querySelector<HTMLButtonElement>('#theme-toggle')!;
-const feedbackUrl = 'https://github.com/Marshall-Studio/FieldCheck/issues/new/choose';
-if (feedbackUrl) { feedback.href = feedbackUrl; feedback.hidden = false; }
+const themeToggleLabel = document.querySelector<HTMLElement>('#theme-toggle-label')!;
+
+function wireFeedbackLink(): void {
+  if (isFeedbackFormConfigured(FEEDBACK_FORM_URL)) {
+    feedback.href = FEEDBACK_FORM_URL;
+    feedback.hidden = false;
+    feedbackStatus.hidden = true;
+  } else {
+    feedback.removeAttribute('href');
+    feedback.hidden = true;
+    feedbackStatus.hidden = false;
+    feedbackStatus.textContent = 'The feedback form link will appear here once it is published.';
+  }
+}
+wireFeedbackLink();
 
 function syncThemeToggle(theme: ThemeMode): void {
-  themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-  themeToggle.title = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+  const nextLabel = theme === 'dark' ? 'Light mode' : 'Dark mode';
+  themeToggleLabel.textContent = nextLabel;
+  themeToggle.setAttribute('aria-label', `Switch to ${nextLabel.toLowerCase()}`);
+  themeToggle.title = `Switch to ${nextLabel.toLowerCase()}`;
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute('content', theme === 'dark' ? '#0a1318' : '#10212d');
+}
+function enableThemeTransitionsAfterPaint(): void {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+  // Wait two frames so the initial boot theme (and this sync) does not animate.
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.documentElement.classList.add('theme-transitions');
+    });
+  });
 }
 function initThemeControls(): void {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const theme = resolveTheme(readStoredTheme(localStorage), prefersDark);
   applyTheme(theme);
   syncThemeToggle(theme);
+  enableThemeTransitionsAfterPaint();
   themeToggle.addEventListener('click', () => {
     const next = toggleTheme(themeFromDocument());
     applyTheme(next);

@@ -6,17 +6,17 @@ Security fixes target the current `main` branch of FieldCheck (static browser bu
 
 ## Reporting a vulnerability
 
-Please **do not** open a public GitHub Issue for security vulnerabilities.
+Please **do not** open a public GitHub Issue for security vulnerabilities, and do not include confidential CSV datasets.
 
-Use GitHub private vulnerability reporting:
+Use GitHub’s **private vulnerability reporting** for this repository:
 
-1. Open https://github.com/Marshall-Studio/FieldCheck/security/advisories/new
-2. Describe the issue, impact, and reproduction steps.
-3. Use **synthetic** CSV examples only — never attach confidential datasets.
+1. Open the Security advisories page for `Marshall-Studio/FieldCheck` and create a new private report  
+   (direct path: `/Marshall-Studio/FieldCheck/security/advisories/new` on github.com).
+2. Describe the issue, impact, and reproduction steps with **synthetic** examples only.
 
-If private advisories are unavailable for any reason, email the repository owner through the GitHub profile contact options and mark the message as a security report.
+Ordinary product feedback (bugs and ideas) belongs on the public FieldCheck website feedback form once it is linked — not through private security channels.
 
-We aim to acknowledge reports within a few business days.
+We aim to acknowledge security reports within a few business days.
 
 ## Scope notes
 

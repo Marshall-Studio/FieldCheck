@@ -2,7 +2,7 @@ blank_issues_enabled: false
 contact_links:
   - name: Security vulnerability
     url: https://github.com/Marshall-Studio/FieldCheck/security/advisories/new
-    about: Report a security issue privately. Do not open a public issue for vulnerabilities.
-  - name: Low-friction public feedback (coming later)
-    url: https://github.com/Marshall-Studio/FieldCheck/discussions
-    about: Prefer Issues for bugs/features today. A no-GitHub form may be linked after a provider is chosen — do not invent one.
+    about: Report a security issue privately via GitHub advisories. Do not open a public issue for vulnerabilities.
+  - name: Product feedback (website)
+    url: https://github.com/Marshall-Studio/FieldCheck#feedback
+    about: Ordinary bugs and ideas should use the FieldCheck website Send feedback form once it is published. Keep confidential CSV data out of GitHub.

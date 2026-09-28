@@ -15,8 +15,10 @@
 | QA-16 | Inspect changed comparison record | Single Inspect record shows older+newer values with changed field highlighted | Pass — browser verified |
 | QA-17 | Modal scroll isolation | Highlighting a cell does not move the underlying page; position restores on close | Pass |
 | QA-18 | Light/dark theme toggle | System default, manual switch, localStorage remember, no flash, themed modal/findings | Pass — pre-release |
+| QA-18b | Theme labels + motion | Light shows Dark mode+moon; dark shows Light mode+sun; ~220ms transition; reduced-motion honored | Pass |
 | QA-19 | Security headers on built site | `_headers` present with CSP, DENY framing, nosniff, referrer | Pass — local build + header tests |
 | QA-20 | Theme storage isolation | Theme key stores only light/dark — never CSV contents | Pass |
+| QA-21 | Public feedback control | Single Send feedback; no Issues/vuln buttons; disabled until Tally URL set | Pass — URL empty until publish |
 
 Note: The default sample supports both validation and comparison; maintenance-errors.csv demonstrates why an ambiguous duplicate key must block reconciliation.
 

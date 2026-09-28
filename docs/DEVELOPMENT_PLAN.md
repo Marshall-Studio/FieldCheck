@@ -23,7 +23,7 @@
 
 - [x] GitHub repo created; CI workflow present.
 - [ ] Clean README screenshots/GIF, changelog, release tag.
-- [x] Turn on feedback URL to the actual GitHub Issues/new page.
+- [x] Turn on website Send feedback (Tally URL placeholder in `src/feedback.ts`; connect before deploy).
 - [x] Set up GitHub Actions for `npm ci` + typecheck + `npm test` with `contents: read`.
 - [x] Document Cloudflare Pages headers / optional Web Analytics enablement path (`docs/DEPLOYMENT.md`, `docs/SECURITY_REVIEW.md`).
 - [ ] Deploy `site/` as a static website; verify a real browser can load it (guide in `docs/DEPLOYMENT.md` — not deployed yet).

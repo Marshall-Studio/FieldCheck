@@ -53,6 +53,14 @@ Creator review U3-01–U3-07: preview wording, clutter, awkward results scrollin
 - Issue templates, `SECURITY.md` private reporting, privacy copy updated; analytics prepared but not embedded.
 - Not deployed — awaiting creator approval of the security-readiness report.
 
+## Final pre-release polish — 2026-09-28
+
+- Theme toggle shows “Dark mode” / “Light mode” with moon/sun; 220ms transitions after paint; respects `prefers-reduced-motion`.
+- Public site feedback is a single Send feedback action prepared for Tally (`src/feedback.ts`); GitHub Issues / vulnerability buttons removed from the UI.
+- Private vulnerability reporting remains in `SECURITY.md` only.
+- Git author privacy: historical commits use a personal mailbox; future commits should switch to GitHub `noreply` (no history rewrite without approval).
+- Not deployed — connect Tally URL and confirm email privacy steps first.
+
 ## Release / bug log template
 
 Date / release:
