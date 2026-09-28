@@ -20,6 +20,15 @@
 - Fixed usability defects D-01–D-07 (plural status text, stats label, feedback copy, failed-load messaging, mobile table wrapping, empty-row colspan, sample loading status). See `docs/QA_TEST_PLAN.md`.
 - Added `countLabel` helper, sample-workflow regression test, and `docs/DEPLOYMENT.md` (prepared; not deployed yet).
 
+## Usability redesign (first-time clarity) — 2026-09-28
+
+Creator hands-on review (U-01–U-05): sample load was easy to miss, spreadsheet contents were invisible, and validation/comparison results were hard to interpret.
+- Added explicit Check vs Compare workflows, older/newer labeling, spreadsheet previews, load confirmation banner.
+- Added safe column suggestions + optional localStorage remember (same headers only; never invents IDs).
+- Reworked results into plain-language summaries, why-it-matters copy, and side-by-side older/newer comparison values.
+- Kept browser-local processing, CSV exports, and injection/`textContent` protections.
+- Not deployed — awaiting another hands-on walkthrough.
+
 ## Release / bug log template
 
 Date / release:

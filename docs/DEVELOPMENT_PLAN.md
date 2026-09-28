@@ -9,6 +9,7 @@
 ## Phase 1 — V1 correctness and usability
 
 - [x] Manually test sample workflow in browser; add tests for real defects (see QA_TEST_PLAN defect log). Additional Chrome/Brave/mobile cross-check still welcome.
+- [x] First-time usability redesign from creator review (U-01–U-05): dual workflows, previews, plain-language results, safe suggestions, local prefs. Awaiting hands-on confirmation before deploy.
 - [ ] Confirm line numbers for multiline CSV edge cases; improve feedback if needed.
 - [ ] Validate a real *non-sensitive* operational dataset and document requirements.
 - [ ] Add automated accessibility and basic UI smoke tests if warranted.

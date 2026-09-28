@@ -2,12 +2,14 @@
 
 ```
 User CSV files -> browser File.text -> TypeScript CSV parser
-                                   -> validation engine -> issues -> report CSV
-Baseline + current -> key-based comparison -> field-level differences -> report CSV
+                                   -> suggestColumns (existing headers only)
+                                   -> validation engine -> plain-language findings -> report CSV
+Older + newer files -> key-based comparison -> side-by-side field diffs -> report CSV
+Optional localStorage prefs -> remember approved columns for the same header fingerprint
 Static HTML UI -> DOM textContent; no unsafe innerHTML for file content
 ```
 
-No login, database, backend, paid API, or file-storage service is required for V1. The only fetches are public sample CSVs from the website. JavaScript modules compile to `site/assets`. Publishing `site/` on a static host preserves the browser-only model.
+No login, database, backend, paid API, or cloud file-storage service is required for V1. The only fetches are public sample CSVs from the website. Optional column preferences stay in the browser's localStorage and never leave the device. JavaScript modules compile to `site/assets`. Publishing `site/` on a static host preserves the browser-only model.
 
 **Why not React/SQL/FastAPI immediately?** The utility prioritizes safety, comprehensibility, and low operating costs. Zero runtime dependencies keep the initial app easy to audit and free to operate. A typed UI framework or SQL engine can be introduced behind documented boundaries when user needs justify it.
 
