@@ -4,7 +4,7 @@
 
 - [x] Zero-runtime-dependency static TypeScript app, CSV parsing, validation, baseline comparison and downloadable reports.
 - [x] Browser-only architecture, sample data, tests, README, design documentation.
-- [ ] Open in Cursor; run tests locally; inspect the website; create GitHub repository.
+- [x] Open in Cursor; run tests locally; create GitHub repository (https://github.com/Marshall-Studio/FieldCheck). Manual browser inspection of the sample flow still pending.
 
 ## Phase 1 — V1 correctness and usability
 

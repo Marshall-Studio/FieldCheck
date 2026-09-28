@@ -7,6 +7,13 @@
 - Added 15 automated tests, GitHub Actions workflow, architecture, product spec and QA plan.
 - Manual end-to-end browser testing and real deployment remain to be completed.
 
+## Local verification + GitHub publish — 2026-09-28
+
+- Installed Node.js 22; `npm install`, `npm run typecheck`, `npm run build`, and `npm test` (15/15) pass.
+- Fixed Windows build path handling in `scripts/build.mjs` (`fileURLToPath` instead of `URL.pathname`).
+- Initialized an independent Git repo (separate from Hollowfall) and published to https://github.com/Marshall-Studio/FieldCheck.
+- Set feedback Issues URL to the live repository.
+
 ## Release / bug log template
 
 Date / release:

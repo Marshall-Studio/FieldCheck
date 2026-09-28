@@ -18,7 +18,7 @@ const compareBody = document.querySelector<HTMLElement>('#comparison-body')!;
 const status = document.querySelector<HTMLElement>('#status')!;
 const stats = document.querySelector<HTMLElement>('#stats')!;
 const feedback = document.querySelector<HTMLAnchorElement>('#feedback-link')!;
-const feedbackUrl = ''; // When GitHub repo is created, add its Issues/new URL here.
+const feedbackUrl = 'https://github.com/Marshall-Studio/FieldCheck/issues/new';
 if (feedbackUrl) { feedback.href = feedbackUrl; feedback.hidden = false; }
 
 let current: Dataset | undefined;
