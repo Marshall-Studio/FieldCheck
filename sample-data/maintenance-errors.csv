@@ -1,0 +1,4 @@
+work_order_id,property,status,hours,cost,description
+WO-1001,Oak Ridge,Open,2,110,Replace kitchen faucet
+WO-1002,,Open,3,wrong,Fix loose fixture
+WO-1002,,Open,3,wrong,Fix loose fixture

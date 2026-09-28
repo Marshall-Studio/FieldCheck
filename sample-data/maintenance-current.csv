@@ -1,0 +1,7 @@
+work_order_id,property,status,hours,cost,description
+WO-1001,Oak Ridge,Closed,2,110,Replace kitchen faucet
+WO-1002,Maple Court,In Progress,5,390,Repair hallway drywall
+WO-1003,Pine Flats,Open,1,65,Inspect leaking valve
+WO-1005,Maple Court,Open,2,95,Adjust bedroom door
+WO-1006,Oak Ridge,Open,3,225,Check basement outlet
+WO-1007,,Open,2,unknown,Fix cabinet hinge

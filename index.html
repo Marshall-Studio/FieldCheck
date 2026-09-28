@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10212d" />
+  <meta name="description" content="Free browser-based CSV validation and data reconciliation. Your files stay on your device." />
+  <title>FieldCheck — Trust your data</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="module" src="./assets/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="./" aria-label="FieldCheck home"><span class="brand-mark">✓</span> FieldCheck <span class="version">V1</span></a>
+      <span class="privacy-pill">● Browser-only · no file upload</span>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow">FREE DATA QUALITY WORKBENCH</span>
+      <h1>Find what changed.<br /><em>Trust what stays.</em></h1>
+      <p>Check messy CSV files, find duplicate or missing records, compare two exports by ID, and download a clear discrepancy report. No account needed.</p>
+      <button id="load-sample" class="button secondary">Try it with sample data →</button>
+    </section>
+    <section class="panel" aria-labelledby="files-title">
+      <div class="section-heading"><div><span class="step">01 / IMPORT</span><h2 id="files-title">Choose your datasets</h2></div><span class="muted small">CSV · up to 8 MB / 30,000 rows per file</span></div>
+      <div class="upload-grid">
+        <label class="upload-box"><span class="upload-icon">↑</span><strong>Current dataset</strong><span>Required for validation</span><input id="current-file" type="file" accept=".csv,text/csv" /><span id="current-info" class="file-info">No file selected.</span></label>
+        <label class="upload-box"><span class="upload-icon">⇄</span><strong>Baseline dataset</strong><span>Optional — for comparison</span><input id="baseline-file" type="file" accept=".csv,text/csv" /><span id="baseline-info" class="file-info">No file selected.</span></label>
+      </div>
+      <p class="footnote">Your files are read by JavaScript in this browser tab. They aren't sent to a FieldCheck server, saved in an account, or included in feedback. Avoid using sensitive data on shared devices.</p>
+    </section>
+    <section class="panel" aria-labelledby="rules-title">
+      <div class="section-heading"><div><span class="step">02 / CONFIGURE</span><h2 id="rules-title">Set your checks</h2></div></div>
+      <div class="rules-grid">
+        <div class="field"><label for="key-column">Unique record ID <span class="muted">(for duplicate detection and comparison)</span></label><select id="key-column"><option value="">Choose record ID column</option></select></div>
+        <div class="field"><span class="label">Required columns <span class="muted">(blank values are flagged)</span></span><div id="required-columns" class="checks"><span class="muted small">Load a dataset first.</span></div></div>
+        <div class="field"><span class="label">Numeric columns <span class="muted">(invalid numbers are flagged)</span></span><div id="numeric-columns" class="checks"><span class="muted small">Load a dataset first.</span></div></div>
+      </div>
+      <div class="action-row"><button id="validate-button" class="button primary" disabled>Run validation</button><button id="compare-button" class="button secondary" disabled>Compare datasets</button></div>
+      <p id="status" class="status" aria-live="polite">Load CSV data or select the sample to begin.</p>
+    </section>
+    <section class="panel" aria-labelledby="results-title">
+      <div class="section-heading"><div><span class="step">03 / REVIEW</span><h2 id="results-title">Results</h2></div></div>
+      <div id="stats" class="stats" aria-live="polite"></div>
+      <div class="table-heading"><div><h3>Data-quality findings</h3><p id="issue-count" class="muted small">No validation run yet.</p></div><button class="button subtle" id="download-issues" disabled>↓ Export issues CSV</button></div>
+      <div class="table-wrap"><table><thead><tr><th>CSV line</th><th>Issue</th><th>Column</th><th>Value</th><th>Explanation</th></tr></thead><tbody id="issue-body"></tbody></table></div>
+      <div class="table-heading compare-heading"><div><h3>Dataset comparison</h3><p id="comparison-count" class="muted small">No comparison run yet.</p></div><button class="button subtle" id="download-comparison" disabled>↓ Export comparison CSV</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Change</th><th>Record ID</th><th>Column</th><th>What changed</th></tr></thead><tbody id="comparison-body"></tbody></table></div>
+    </section>
+    <section class="footer-panel"><div><h3>Have an issue or feature idea?</h3><p>The public feedback link will appear after the GitHub repository is published. Don't include confidential data in a bug report.</p></div><a id="feedback-link" class="button secondary" href="#" hidden target="_blank" rel="noopener noreferrer">Report a bug / suggest a feature ↗</a></section>
+  </main>
+  <footer class="wrap footer">FieldCheck V1 · Built for practical data checking · Local processing · Free to use</footer>
+</body>
+</html>
