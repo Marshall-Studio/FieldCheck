@@ -1,18 +1,22 @@
 # FieldCheck
 
-A free, local-first CSV data-quality and reconciliation workbench. **Portfolio-led, but built as a real utility.**
+**A free, local-first tool for checking CSV data and comparing exports.**
 
-## What it does
+FieldCheck helps you answer two practical questions: **What's wrong with this file?** and **What changed since the previous export?** It runs in your browser without an account. CSV contents are not uploaded to a FieldCheck server.
 
-- Load a CSV, select a unique ID, required and numeric columns, and detect common data-quality issues.
-- Load a baseline and current CSV; compare by ID (not row position) for added, removed and modified records.
-- Inspect issues in-browser and export complete reports as CSV.
-- Try a maintenance-workflow sample with intentionally planted errors.
-- No accounts, server uploads, AI API costs or runtime dependencies.
+## What you can do
 
-## Open in Cursor and run
+- Load a CSV and check for blank or duplicate IDs, missing required values, invalid numbers, and duplicate rows.
+- Compare an earlier and a newer CSV by a shared unique ID, even when rows have been reordered.
+- See added, removed, and changed records, including field-level differences.
+- Export findings and comparisons as CSV.
+- Explore the included maintenance-workflow sample files.
 
-Install Node.js 22 and npm. Open this extracted folder in Cursor, then use the terminal:
+**Current format:** CSV. Each file can contain up to 8 MB, 30,000 data rows, and 80 columns. Comparison needs an existing unique identifier present in both files; it does not guess relationships between ambiguous records. The first release has no user accounts, stored projects, or Excel `.xlsx` import.
+
+## Run locally
+
+Install Node.js 22 and npm, then run:
 
 ```bash
 npm install
@@ -20,24 +24,18 @@ npm test
 npm run dev
 ```
 
-Open **http://127.0.0.1:5173/**. If you change `.ts` files, run `npm run build` again and refresh the page. `npm test` builds the website and runs the tests. A TypeScript compiler dependency is included for reproducibility; the published site itself has no third-party runtime libraries.
+Open http://127.0.0.1:5173/ in your browser. For a production build, run `npm run build`; the generated static website is in `site/`. Source code lives in `src/`, with `index.html` and `styles.css` at the root. Do not edit generated `site/` files directly.
 
-`site/` is generated; don't edit it directly. Source lives in `src/`, HTML in `index.html`, styles in `styles.css`. To deploy to Cloudflare Pages or another static host, build with `npm run build` and publish the **site/** folder. See [Deployment](docs/DEPLOYMENT.md) for host settings and the pre-launch checklist. No paid hosting is required initially; check the hosting provider's then-current terms.
+See [Deployment](docs/DEPLOYMENT.md), [Product Specification](docs/PRODUCT_SPEC.md), [Architecture](docs/ARCHITECTURE.md), [Development Plan](docs/DEVELOPMENT_PLAN.md), and [QA Test Plan](docs/QA_TEST_PLAN.md).
 
-## Feedback
+## Feedback and bug reports
 
-The app links to [GitHub Issues](https://github.com/Marshall-Studio/FieldCheck/issues/new) for bug reports and feature ideas. Do not include confidential CSV contents in an issue.
+[Report a bug or request a feature](https://github.com/Marshall-Studio/FieldCheck/issues/new). Please describe the steps and expected behavior, and use a synthetic example instead of attaching confidential datasets.
 
-## Known limits and honest resume framing
+## Privacy and security
 
-See [Product Spec](docs/PRODUCT_SPEC.md), [Architecture](docs/ARCHITECTURE.md), [Development Plan](docs/DEVELOPMENT_PLAN.md), and [QA Test Plan](docs/QA_TEST_PLAN.md).
-
-**Important:** The V1 is a TypeScript browser-based application. It does **not** use SQL, Python, FastAPI, persistent issue review, or a hosted backend. BugSift separately demonstrates backend/SQL skills. Only add those claims to FieldCheck after actually implementing them.
-
-## Maintenance and privacy
-
-The default processing path is local in the user's browser; files are not uploaded to a FieldCheck server. The sample dataset is public. No analytics, user accounts, storage or payments are included in the starter. Review user-reported defects, test changes, and periodically check security/dependency updates. Don't commit real client or employer data.
+FieldCheck processes imported files in browser memory. It does not require sign-in, send CSV contents to a FieldCheck API, or include analytics in the current version. Downloaded reports guard against spreadsheet formula interpretation, and imported text is rendered as text instead of HTML.
 
 ## License
 
-No software license is included yet. Choose one intentionally before encouraging others to redistribute the source. The public website itself can be free to use without open-sourcing under an unrestricted license.
+A redistribution license has not yet been selected. The website may be free to use without granting permission to redistribute the source code.
