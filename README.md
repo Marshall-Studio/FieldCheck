@@ -30,11 +30,15 @@ See [Deployment](docs/DEPLOYMENT.md), [Product Specification](docs/PRODUCT_SPEC.
 
 ## Feedback and bug reports
 
-[Report a bug or request a feature](https://github.com/Marshall-Studio/FieldCheck/issues/new). Please describe the steps and expected behavior, and use a synthetic example instead of attaching confidential datasets.
+Use the [bug](https://github.com/Marshall-Studio/FieldCheck/issues/new?template=bug_report.yml) or [feature](https://github.com/Marshall-Studio/FieldCheck/issues/new?template=feature_request.yml) templates. Please describe the steps and expected behavior, and use a synthetic example instead of attaching confidential datasets.
+
+For security issues, follow [SECURITY.md](SECURITY.md) (private vulnerability reporting). A low-friction feedback form for visitors without GitHub may be linked later once a provider is chosen — none is embedded yet.
 
 ## Privacy and security
 
-FieldCheck processes imported files in browser memory. It does not require sign-in, send CSV contents to a FieldCheck API, or include analytics in the current version. Downloaded reports guard against spreadsheet formula interpretation, and imported text is rendered as text instead of HTML.
+FieldCheck processes imported files in browser memory. It does not require sign-in or send CSV contents to a FieldCheck API. Optional browser storage remembers column-check preferences and your light/dark theme choice only — never spreadsheet rows. Optional host-level privacy-friendly visit analytics may be enabled later; they are **not** embedded in this release and would not receive uploaded file contents. Downloaded reports guard against spreadsheet formula interpretation, and imported text is rendered as text instead of HTML.
+
+See [docs/SECURITY_REVIEW.md](docs/SECURITY_REVIEW.md) for the pre-release security review notes.
 
 ## License
 

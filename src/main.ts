@@ -16,6 +16,15 @@ import {
   type HighlightTarget
 } from './inspect.js';
 import { viewportTopForElement, containerScrollForHighlight } from './scroll.js';
+import {
+  applyTheme,
+  readStoredTheme,
+  resolveTheme,
+  themeFromDocument,
+  toggleTheme,
+  writeStoredTheme,
+  type ThemeMode
+} from './theme.js';
 import type { Dataset, DataRow, Issue, ValidationResult, ComparisonResult, ComparisonRow, CellDifference } from './types.js';
 
 type WorkflowMode = 'check' | 'compare';
@@ -83,8 +92,29 @@ const modalRecordView = document.querySelector<HTMLElement>('#modal-record-view'
 const resultsHeading = document.querySelector<HTMLElement>('#results-heading')!;
 const comparisonHeading = document.querySelector<HTMLElement>('#comparison-heading')!;
 const feedback = document.querySelector<HTMLAnchorElement>('#feedback-link')!;
-const feedbackUrl = 'https://github.com/Marshall-Studio/FieldCheck/issues/new';
+const themeToggle = document.querySelector<HTMLButtonElement>('#theme-toggle')!;
+const feedbackUrl = 'https://github.com/Marshall-Studio/FieldCheck/issues/new/choose';
 if (feedbackUrl) { feedback.href = feedbackUrl; feedback.hidden = false; }
+
+function syncThemeToggle(theme: ThemeMode): void {
+  themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  themeToggle.title = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', theme === 'dark' ? '#0a1318' : '#10212d');
+}
+function initThemeControls(): void {
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = resolveTheme(readStoredTheme(localStorage), prefersDark);
+  applyTheme(theme);
+  syncThemeToggle(theme);
+  themeToggle.addEventListener('click', () => {
+    const next = toggleTheme(themeFromDocument());
+    applyTheme(next);
+    writeStoredTheme(next, localStorage);
+    syncThemeToggle(next);
+  });
+}
+initThemeControls();
 
 let mode: WorkflowMode = 'check';
 let lastOperation: LastOperation = 'none';

@@ -5,6 +5,8 @@ export interface ColumnPrefs {
 }
 
 const STORAGE_KEY = 'fieldcheck.columnPrefs.v1';
+/** Cap remembered header layouts so localStorage cannot grow without bound. */
+export const MAX_PREF_ENTRIES = 20;
 
 /** Stable fingerprint of a column set so prefs only restore for the same headers. */
 export function columnFingerprint(columns: string[]): string {
@@ -26,18 +28,34 @@ export function writePrefsStore(store: Record<string, ColumnPrefs>): string {
   return JSON.stringify(store);
 }
 
+/** Keep at most MAX_PREF_ENTRIES layouts; newest key is retained, oldest keys dropped. */
+export function trimPrefsStore(store: Record<string, ColumnPrefs>, newestKey: string, max = MAX_PREF_ENTRIES): Record<string, ColumnPrefs> {
+  const keys = Object.keys(store);
+  if (keys.length <= max) return store;
+  const ordered = [newestKey, ...keys.filter(k => k !== newestKey)];
+  const keep = new Set(ordered.slice(0, max));
+  const next: Record<string, ColumnPrefs> = {};
+  for (const key of keep) {
+    const value = store[key];
+    if (value) next[key] = value;
+  }
+  return next;
+}
+
 export function loadColumnPrefs(columns: string[], storage: Storage = localStorage): ColumnPrefs | undefined {
   const store = readPrefsStore(storage.getItem(STORAGE_KEY));
   return store[columnFingerprint(columns)];
 }
 
 export function saveColumnPrefs(columns: string[], prefs: ColumnPrefs, storage: Storage = localStorage): void {
-  const store = readPrefsStore(storage.getItem(STORAGE_KEY));
-  store[columnFingerprint(columns)] = {
+  const key = columnFingerprint(columns);
+  let store = readPrefsStore(storage.getItem(STORAGE_KEY));
+  store[key] = {
     keyColumn: prefs.keyColumn,
     requiredColumns: [...prefs.requiredColumns],
     numericColumns: [...prefs.numericColumns]
   };
+  store = trimPrefsStore(store, key);
   storage.setItem(STORAGE_KEY, writePrefsStore(store));
 }
 

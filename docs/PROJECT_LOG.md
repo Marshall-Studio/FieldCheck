@@ -46,6 +46,13 @@ Creator review U3-01–U3-07: preview wording, clutter, awkward results scrollin
 - Modal locks page scroll (`position: fixed` + restore); highlights scroll inside the modal table wrap only.
 - Browser desktop + mobile QA verified; typecheck/build/tests green. Not deployed.
 
+## Pre-release hardening (dark mode + security) — 2026-09-28
+
+- Accessible light/dark theme toggle with system preference, localStorage theme key, and flash-avoiding boot script.
+- Security review documented in `docs/SECURITY_REVIEW.md`; Cloudflare Pages `_headers` CSP/framing/nosniff/referrer; CI `npm ci` + least privilege.
+- Issue templates, `SECURITY.md` private reporting, privacy copy updated; analytics prepared but not embedded.
+- Not deployed — awaiting creator approval of the security-readiness report.
+
 ## Release / bug log template
 
 Date / release:

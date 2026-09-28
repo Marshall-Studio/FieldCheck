@@ -72,7 +72,8 @@ export function parseCsv(text: string, name = 'dataset.csv'): Dataset {
 /** Protect exports against spreadsheet-formula injection. This does not modify the imported dataset. */
 export function safeCsvCell(value: string | number): string {
   let s = String(value);
-  if (/^[\s]*[=+\-@]/.test(s) || /^[\t\r]/.test(s)) s = `'${s}`;
+  // Neutralize leading formula markers and tab/CR control prefixes used by some spreadsheet apps.
+  if (/^[\s\u0000]*[=+\-@\t\r]/.test(s) || s.includes('\u0000')) s = `'${s}`;
   return `"${s.replaceAll('"', '""')}"`;
 }
 export function toCsv(rows: Array<Array<string | number>>): string {

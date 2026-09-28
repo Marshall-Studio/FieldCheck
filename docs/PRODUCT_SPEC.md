@@ -19,8 +19,8 @@ People have an export and need a clear, reproducible answer to two questions: â€
 - Detects blank unique IDs, duplicate IDs, duplicate entire rows, missing selected required fields, and invalid selected numeric fields.
 - Comparison uses ID matching independent of row position and fails safely on duplicate or missing IDs.
 - Renders imported values as text, not HTML; exported values are guarded against spreadsheet formula injection.
-- Core file processing remains local in the browser. No sign-in, uploaded file storage, or analytics in V1.
-- Tests run without external accounts; CI can use `npm test`; sample data illustrates meaningful changes and errors.
+- Core file processing remains local in the browser. No sign-in or uploaded file storage. Optional host visit analytics are off by default and must not receive CSV contents if enabled later.
+- Tests run without external accounts; CI uses `npm ci` + `npm test`; sample data illustrates meaningful changes and errors.
 
 ## Intentional V1 limitations
 
@@ -33,7 +33,7 @@ People have an export and need a clear, reproducible answer to two questions: â€
 
 ## Privacy / security
 
-Files are processed in browser memory, not sent to FieldCheck. No third-party analytics, cookies, or persistent file storage in this starter. The site can be hosted as static content. Don't include CSV row data in bug reports. Input sizes are bounded; issue rendering is capped at 250 entries (complete export available). CSV report cells guard against spreadsheet formulas.
+Files are processed in browser memory, not sent to FieldCheck. Optional `localStorage` may keep column preferences and theme choice â€” not CSV rows. No third-party analytics script is shipped in the first release HTML. The site is hosted as static content with Cloudflare Pages `_headers` (CSP and related defenses). Don't include CSV row data in bug reports. Input sizes are bounded; issue rendering is capped at 250 entries (complete export available). CSV report cells guard against spreadsheet formulas. See `docs/SECURITY_REVIEW.md`.
 
 ## Future only if evidence justifies it
 

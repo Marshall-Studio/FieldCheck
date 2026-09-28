@@ -12,6 +12,7 @@
 - [x] First-time usability redesign from creator review (U-01–U-05): dual workflows, previews, plain-language results, safe suggestions, local prefs.
 - [x] Second usability pass (U2-01–U2-09): file inspection, jump-to-record, clearer results/settings/next steps.
 - [x] Third usability pass (U3-01–U3-07): reduce cognitive load, fix results scrolling, unify Inspect record, clarify CSV-table preview. Awaiting creator hands-on before deploy.
+- [x] Pre-release dark mode + security hardening (theme toggle, `_headers` CSP, CI least privilege, security docs). Awaiting deployment approval.
 - [ ] Confirm line numbers for multiline CSV edge cases; improve feedback if needed.
 - [ ] Validate a real *non-sensitive* operational dataset and document requirements.
 - [ ] Add automated accessibility and basic UI smoke tests if warranted.
@@ -23,7 +24,8 @@
 - [x] GitHub repo created; CI workflow present.
 - [ ] Clean README screenshots/GIF, changelog, release tag.
 - [x] Turn on feedback URL to the actual GitHub Issues/new page.
-- [x] Set up GitHub Actions for `npm test` (`.github/workflows/ci.yml`).
+- [x] Set up GitHub Actions for `npm ci` + typecheck + `npm test` with `contents: read`.
+- [x] Document Cloudflare Pages headers / optional Web Analytics enablement path (`docs/DEPLOYMENT.md`, `docs/SECURITY_REVIEW.md`).
 - [ ] Deploy `site/` as a static website; verify a real browser can load it (guide in `docs/DEPLOYMENT.md` — not deployed yet).
 - [ ] Record only observed outcomes: tests, real usage and reported feedback. Never invent metrics.
 

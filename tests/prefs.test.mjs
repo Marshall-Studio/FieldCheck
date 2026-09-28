@@ -1,6 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { columnFingerprint, loadColumnPrefs, saveColumnPrefs, readPrefsStore, clearColumnPrefs, clearAllColumnPrefs } from '../site/assets/prefs.js';
+import {
+  columnFingerprint,
+  loadColumnPrefs,
+  saveColumnPrefs,
+  readPrefsStore,
+  clearColumnPrefs,
+  clearAllColumnPrefs,
+  trimPrefsStore,
+  MAX_PREF_ENTRIES
+} from '../site/assets/prefs.js';
 
 function memoryStorage(seed = {}) {
   const map = new Map(Object.entries(seed));
@@ -38,4 +47,15 @@ test('clears saved preferences', () => {
 
 test('ignores corrupt prefs JSON', () => {
   assert.deepEqual(readPrefsStore('{not-json'), {});
+});
+
+test('trims remembered header layouts so storage cannot grow without bound', () => {
+  const store = {};
+  for (let i = 0; i < MAX_PREF_ENTRIES + 5; i++) {
+    store[`cols-${i}`] = { requiredColumns: [], numericColumns: [] };
+  }
+  store['cols-new'] = { requiredColumns: ['id'], numericColumns: [] };
+  const trimmed = trimPrefsStore(store, 'cols-new', MAX_PREF_ENTRIES);
+  assert.equal(Object.keys(trimmed).length, MAX_PREF_ENTRIES);
+  assert.deepEqual(trimmed['cols-new'], { requiredColumns: ['id'], numericColumns: [] });
 });

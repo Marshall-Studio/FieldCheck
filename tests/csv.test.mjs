@@ -16,7 +16,8 @@ test('rejects duplicate headers ignoring case',()=>assert.throws(()=>parseCsv('I
 test('rejects malformed row lengths',()=>assert.throws(()=>parseCsv('id,name\n1'),/expected 2/));
 test('rejects unexpected text after closing quote',()=>assert.throws(()=>parseCsv('id,note\n1,"a"oops'),/Unexpected character/));
 test('protects CSV output from spreadsheet-formula injection',()=>{
- const csv=toCsv([['label','value'],['unsafe','=HYPERLINK("evil")'],['negative','-10']]);
+ const csv=toCsv([['label','value'],['unsafe','=HYPERLINK("evil")'],['negative','-10'],['nul','\u0000=cmd']]);
  assert.match(csv,/"'=HYPERLINK\(""evil""\)"/);
  assert.match(csv,/"'-10"/);
+ assert.match(csv,/"'\u0000=cmd"/);
 });

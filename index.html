@@ -4,8 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#10212d" />
+  <meta name="color-scheme" content="light dark" />
   <meta name="description" content="Free browser-based CSV validation and data reconciliation. Your files stay on your device." />
   <title>FieldCheck — Trust your data</title>
+  <script src="./theme-boot.js"></script>
   <link rel="stylesheet" href="./styles.css" />
   <script type="module" src="./assets/main.js"></script>
 </head>
@@ -13,7 +15,18 @@
   <header class="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="./" aria-label="FieldCheck home"><span class="brand-mark">✓</span> FieldCheck <span class="version">V1</span></a>
-      <span class="privacy-pill">● Browser-only · no file upload</span>
+      <div class="header-actions">
+        <span class="privacy-pill">● Browser-only · no file upload</span>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme" title="Toggle color theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M19 13.5A7.5 7.5 0 1 1 10.5 5 6 6 0 0 0 19 13.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </header>
   <main class="wrap">
@@ -104,7 +117,7 @@
       </div>
       <details class="help-details">
         <summary>Privacy &amp; file handling</summary>
-        <p>Files are read in this browser tab only. They are not uploaded to a FieldCheck server. CSV previews are reconstructed tables of imported values — not Excel/Google Sheets documents, and they do not preserve spreadsheet formatting.</p>
+        <p>Files are read in this browser tab only. They are not uploaded to a FieldCheck server. Optional local preferences store column choices and your light/dark theme setting — never CSV row contents. CSV previews are reconstructed tables of imported values — not Excel/Google Sheets documents, and they do not preserve spreadsheet formatting. Optional privacy-friendly traffic analytics, if enabled later on the host, would see page visits only, not spreadsheet contents.</p>
       </details>
     </section>
 
@@ -220,12 +233,15 @@
     <section class="footer-panel">
       <div>
         <h3>Have an issue or feature idea?</h3>
-        <p>Report a bug without including confidential CSV contents.</p>
+        <p>Use GitHub Issues for technical reports. Do not paste confidential CSV contents. A simple no-GitHub feedback form may be linked here later once a provider is chosen.</p>
       </div>
-      <a id="feedback-link" class="button secondary" href="#" hidden target="_blank" rel="noopener noreferrer">Report a bug / suggest a feature ↗</a>
+      <div class="file-actions">
+        <a id="feedback-link" class="button secondary" href="#" hidden target="_blank" rel="noopener noreferrer">Report a bug / suggest a feature ↗</a>
+        <a id="security-link" class="button subtle" href="https://github.com/Marshall-Studio/FieldCheck/security/advisories/new" target="_blank" rel="noopener noreferrer">Report a vulnerability ↗</a>
+      </div>
     </section>
   </main>
-  <footer class="wrap footer">FieldCheck V1 · Local processing · Free to use</footer>
+  <footer class="wrap footer">FieldCheck V1 · Local processing · Free to use · <a href="./#privacy-note" id="privacy-note">Privacy</a></footer>
 
   <div id="preview-modal" class="modal" hidden>
     <div class="modal-backdrop" data-close-modal></div>

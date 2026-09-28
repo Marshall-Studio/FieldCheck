@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest an improvement that preserves browser-local CSV processing.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the user problem first. Keep suggestions compatible with a static, browser-local tool unless you are explicitly proposing a hosted mode.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is hard or missing today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: How should it work for a visitor?
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope fit
+      options:
+        - Fits browser-local static V1
+        - Would need a backend / accounts (out of scope unless justified)
+        - Not sure
+    validations:
+      required: true
