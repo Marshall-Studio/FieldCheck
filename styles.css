@@ -119,7 +119,20 @@ td{color:#31464c}
 .modal-search input{width:100%;padding:10px 12px;border:1px solid #c9d8d0;border-radius:8px}
 .modal-pager{display:flex;gap:8px;align-items:center}
 .highlight-note{margin:0 0 12px;padding:10px 12px;border-radius:8px;background:#fff7e6;border:1px solid #f0d9a4;color:#7a5310;font-size:13px}
-.modal-table-wrap{max-height:55vh}
+.modal-table-wrap{max-height:55vh;overflow:auto}
+.help-details{margin-top:14px;border:1px solid #e2ebe6;border-radius:10px;background:#fbfefc;padding:8px 12px;font-size:12px;color:#607067;line-height:1.5}
+.help-details.compact{margin-top:8px;padding:6px 10px}
+.help-details summary{cursor:pointer;font-weight:750;color:#2f5f45}
+.help-details p{margin:8px 0 4px}
+.help-details code{font-size:11px;background:#eef4f0;padding:1px 5px;border-radius:4px}
+.next-steps{margin-bottom:18px}
+.next-steps ol{margin:8px 0 4px;padding-left:18px}
+html.modal-open,body.modal-open{overflow:hidden;overscroll-behavior:none}
+body.modal-open{position:fixed;width:100%;left:0;right:0}
+.record-inspect{border:1px solid #e2ebe6;border-radius:12px;padding:14px;background:#fcfefd;margin-bottom:12px}
+.record-inspect .record-meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin-bottom:12px;font-size:12px;color:#607067}
+.record-inspect table{min-width:480px}
+.record-inspect th.changed-col,.record-inspect td.changed-col{background:#fff7e6}
 @media(max-width:900px){
   body.mode-compare .upload-grid,.workflow-toggle,.rules-grid{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}

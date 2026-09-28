@@ -37,6 +37,15 @@ Creator review U2-01–U2-09: findings were hard to map back to a file/record, n
 - Operation-specific summaries/stats, expandable added/removed values, softer numeric wording, clearer settings + save/clear prefs, next-steps panel.
 - Not deployed — awaiting WO-1007 hands-on confirmation.
 
+## Cognitive load & navigation (third review) — 2026-09-28
+
+Creator review U3-01–U3-07: preview wording, clutter, awkward results scrolling, overlapping inspect actions.
+- Clarified CSV table preview (reconstructed values, not Excel/Sheets).
+- Collapsed secondary help into optional details; unified Inspect record.
+- Instant check/compare scroll under sticky header; compare hides the prior check table so changes are in view.
+- Modal locks page scroll (`position: fixed` + restore); highlights scroll inside the modal table wrap only.
+- Browser desktop + mobile QA verified; typecheck/build/tests green. Not deployed.
+
 ## Release / bug log template
 
 Date / release:

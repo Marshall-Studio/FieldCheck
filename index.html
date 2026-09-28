@@ -20,41 +20,40 @@
     <section class="hero">
       <span class="eyebrow">FREE DATA QUALITY WORKBENCH</span>
       <h1>Find what changed.<br /><em>Trust what stays.</em></h1>
-      <p>Check a CSV for problems, or compare two exports by unique ID. Files stay in your browser — nothing is uploaded to a FieldCheck server.</p>
+      <p>Check a CSV for problems, or compare two exports by unique ID. Files stay in your browser.</p>
     </section>
 
     <section class="panel" aria-labelledby="workflow-title">
       <div class="section-heading">
-        <div><span class="step">01 / CHOOSE A WORKFLOW</span><h2 id="workflow-title">What do you want to do?</h2></div>
+        <div><span class="step">01 / WORKFLOW</span><h2 id="workflow-title">What do you want to do?</h2></div>
       </div>
       <div class="workflow-toggle" role="tablist" aria-label="Workflow">
         <button type="button" class="workflow-card is-active" id="mode-check" role="tab" aria-selected="true" data-mode="check">
           <strong>Check one file</strong>
-          <span>Find missing values, bad numbers, and duplicate IDs in a single CSV.</span>
+          <span>Find blanks, bad numbers, and duplicate IDs.</span>
         </button>
         <button type="button" class="workflow-card" id="mode-compare" role="tab" aria-selected="false" data-mode="compare">
           <strong>Compare two versions</strong>
-          <span>Match an older and newer export by unique ID to see what was added, removed, or changed.</span>
+          <span>See added, removed, and changed records by ID.</span>
         </button>
       </div>
       <div class="sample-row">
         <button id="load-sample" class="button secondary" type="button">Load maintenance sample →</button>
-        <p id="sample-hint" class="muted small">Loads an older and newer work-order export with planted errors so you can see the full workflow.</p>
+        <p id="sample-hint" class="muted small">Older + newer work-order CSVs with planted errors.</p>
       </div>
       <p id="load-banner" class="load-banner" hidden aria-live="polite"></p>
     </section>
 
     <section class="panel" aria-labelledby="files-title">
       <div class="section-heading">
-        <div><span class="step">02 / LOAD DATA</span><h2 id="files-title">Load your spreadsheet(s)</h2></div>
-        <span class="muted small">CSV · up to 8 MB / 30,000 rows per file</span>
+        <div><span class="step">02 / LOAD</span><h2 id="files-title">Load CSV files</h2></div>
+        <span class="muted small">CSV · up to 8 MB / 30,000 rows</span>
       </div>
       <div class="upload-grid">
         <div class="upload-panel" id="baseline-panel" hidden>
           <div class="upload-box" id="baseline-box">
             <span class="role-tag older">Older version</span>
-            <strong>Baseline dataset</strong>
-            <span>The earlier export to compare against</span>
+            <strong>Baseline</strong>
             <div class="active-file" id="baseline-active-file">
               <span class="active-file-label">Active file</span>
               <strong id="baseline-file-name">None loaded</strong>
@@ -65,12 +64,12 @@
                 <span id="baseline-picker-label">Choose CSV…</span>
                 <input id="baseline-file" class="visually-hidden" type="file" accept=".csv,text/csv" />
               </label>
-              <button type="button" class="button subtle" id="baseline-open-preview" disabled>Open full preview</button>
+              <button type="button" class="button subtle" id="baseline-open-preview" disabled>Browse CSV table</button>
             </div>
           </div>
           <div class="preview-block">
             <div class="preview-heading">
-              <h3>Quick preview · older file</h3>
+              <h3>CSV table snippet · older</h3>
               <p id="baseline-preview-meta" class="muted small">Load a file to see rows here.</p>
             </div>
             <div class="table-wrap preview-wrap"><table><thead id="baseline-preview-head"></thead><tbody id="baseline-preview-body"></tbody></table></div>
@@ -80,7 +79,7 @@
           <div class="upload-box" id="current-box">
             <span class="role-tag newer" id="current-role-tag">File to check</span>
             <strong id="current-upload-title">Dataset</strong>
-            <span id="current-upload-hint">Required for checking problems</span>
+            <span id="current-upload-hint" class="visually-hidden">Required for checking problems</span>
             <div class="active-file" id="current-active-file">
               <span class="active-file-label">Active file</span>
               <strong id="current-file-name">None loaded</strong>
@@ -91,41 +90,53 @@
                 <span id="current-picker-label">Choose CSV…</span>
                 <input id="current-file" class="visually-hidden" type="file" accept=".csv,text/csv" />
               </label>
-              <button type="button" class="button subtle" id="current-open-preview" disabled>Open full preview</button>
+              <button type="button" class="button subtle" id="current-open-preview" disabled>Browse CSV table</button>
             </div>
           </div>
           <div class="preview-block">
             <div class="preview-heading">
-              <h3 id="current-preview-title">Quick preview · file to check</h3>
+              <h3 id="current-preview-title">CSV table snippet · file to check</h3>
               <p id="current-preview-meta" class="muted small">Load a file to see rows here.</p>
             </div>
             <div class="table-wrap preview-wrap"><table><thead id="current-preview-head"></thead><tbody id="current-preview-body"></tbody></table></div>
           </div>
         </div>
       </div>
-      <p class="footnote">Your files are read by JavaScript in this browser tab. They aren't sent to a FieldCheck server, saved in an account, or included in feedback. Avoid using sensitive data on shared devices.</p>
+      <details class="help-details">
+        <summary>Privacy &amp; file handling</summary>
+        <p>Files are read in this browser tab only. They are not uploaded to a FieldCheck server. CSV previews are reconstructed tables of imported values — not Excel/Google Sheets documents, and they do not preserve spreadsheet formatting.</p>
+      </details>
     </section>
 
     <section class="panel" aria-labelledby="rules-title">
       <div class="section-heading">
-        <div><span class="step">03 / CONFIGURE</span><h2 id="rules-title">Review suggested checks</h2></div>
+        <div><span class="step">03 / CHECKS</span><h2 id="rules-title">Set checks</h2></div>
       </div>
-      <p id="suggest-banner" class="suggest-banner" aria-live="polite">Load a dataset to get safe column suggestions. Suggestions are heuristics you can override — they never invent IDs or prove a column must be required.</p>
+      <p id="suggest-banner" class="suggest-banner" aria-live="polite">Load a file to see suggested columns. Suggestions are optional heuristics.</p>
       <div class="rules-grid">
         <div class="field">
           <label for="key-column">Unique record ID</label>
-          <p class="help-text">An existing column that already identifies each record, such as <code>work_order_id</code>. Comparison matches older and newer rows by this ID — not by spreadsheet row order — and never invents missing IDs.</p>
           <select id="key-column"><option value="">Choose record ID column</option></select>
+          <details class="help-details compact">
+            <summary>What this does</summary>
+            <p>Uses an existing ID column (for example <code>work_order_id</code>) to match records. Comparison never invents IDs or matches by row order.</p>
+          </details>
         </div>
         <div class="field">
           <span class="label">Required columns</span>
-          <p class="help-text">Columns that should not be blank. Suggested checks only mean some values are already blank in this file — that does <strong>not</strong> prove the column is required for your process.</p>
           <div id="required-columns" class="checks"><span class="muted small">Load a dataset first.</span></div>
+          <details class="help-details compact">
+            <summary>About suggestions</summary>
+            <p>Suggested when some values are already blank. That does not prove the column is required for your process.</p>
+          </details>
         </div>
         <div class="field">
           <span class="label">Numeric columns</span>
-          <p class="help-text">Columns that should contain ordinary numbers (like hours or cost). Suggested when most filled values already look numeric.</p>
           <div id="numeric-columns" class="checks"><span class="muted small">Load a dataset first.</span></div>
+          <details class="help-details compact">
+            <summary>About suggestions</summary>
+            <p>Suggested when most filled values already look like ordinary numbers.</p>
+          </details>
         </div>
       </div>
       <div class="action-row">
@@ -134,13 +145,16 @@
         <button id="remember-prefs" class="button subtle" type="button" disabled>Save checking preferences</button>
         <button id="clear-prefs" class="button subtle" type="button">Clear saved preferences</button>
       </div>
-      <p class="prefs-note muted small">Saving preferences stores only your column choices in this browser. It does not save or upload spreadsheet contents.</p>
+      <details class="help-details compact">
+        <summary>About saved preferences</summary>
+        <p>Stores only your column choices in this browser — not spreadsheet contents.</p>
+      </details>
       <p id="status" class="status" aria-live="polite">Choose a workflow, then load a CSV or the maintenance sample.</p>
     </section>
 
-    <section class="panel" aria-labelledby="results-title">
-      <div class="section-heading">
-        <div><span class="step">04 / RESULTS</span><h2 id="results-title">What we found</h2></div>
+    <section class="panel" id="results-panel" aria-labelledby="results-title">
+      <div class="section-heading" id="results-heading">
+        <div><span class="step">04 / RESULTS</span><h2 id="results-title">Results</h2></div>
       </div>
       <div id="summary-card" class="summary-card" aria-live="polite">
         <p class="operation-label muted small" id="operation-label">No operation run yet</p>
@@ -148,13 +162,13 @@
         <p class="summary-detail muted" id="summary-detail">Run a check or comparison after loading data.</p>
       </div>
       <div id="stats" class="stats" aria-live="polite"></div>
-      <div id="next-steps" class="next-steps" hidden>
-        <h3>What to do next</h3>
+      <details id="next-steps" class="next-steps help-details" hidden>
+        <summary>What to do next</summary>
         <ol id="next-steps-list"></ol>
-      </div>
+      </details>
 
       <div id="validation-results">
-        <div class="table-heading">
+        <div class="table-heading" id="validation-heading">
           <div>
             <h3>Problems found</h3>
             <p id="issue-count" class="muted small">No check run yet.</p>
@@ -178,7 +192,7 @@
       </div>
 
       <div id="comparison-results" hidden>
-        <div class="table-heading compare-heading">
+        <div class="table-heading compare-heading" id="comparison-heading">
           <div>
             <h3>Changes between older and newer</h3>
             <p id="comparison-count" class="muted small">No comparison run yet.</p>
@@ -194,7 +208,7 @@
                 <th>Column</th>
                 <th>Older value</th>
                 <th>Newer value</th>
-                <th>Inspect</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="comparison-body"></tbody>
@@ -206,25 +220,26 @@
     <section class="footer-panel">
       <div>
         <h3>Have an issue or feature idea?</h3>
-        <p>Open a GitHub issue to report a bug or suggest an improvement. Don't include confidential data in a bug report.</p>
+        <p>Report a bug without including confidential CSV contents.</p>
       </div>
       <a id="feedback-link" class="button secondary" href="#" hidden target="_blank" rel="noopener noreferrer">Report a bug / suggest a feature ↗</a>
     </section>
   </main>
-  <footer class="wrap footer">FieldCheck V1 · Built for practical data checking · Local processing · Free to use</footer>
+  <footer class="wrap footer">FieldCheck V1 · Local processing · Free to use</footer>
 
   <div id="preview-modal" class="modal" hidden>
     <div class="modal-backdrop" data-close-modal></div>
     <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title">
       <div class="modal-header">
         <div>
+          <p class="muted small" id="modal-kind-label">CSV table preview</p>
+          <h2 id="modal-title">Preview</h2>
           <p class="muted small" id="modal-source-label">Source file</p>
-          <h2 id="modal-title">Full preview</h2>
           <p class="muted small" id="modal-meta"></p>
         </div>
         <button type="button" class="button subtle" id="modal-close" data-close-modal>Close</button>
       </div>
-      <div class="modal-toolbar">
+      <div id="modal-table-controls" class="modal-toolbar">
         <label class="modal-search">
           <span class="visually-hidden">Search records</span>
           <input id="modal-search" type="search" placeholder="Search ID, value, or CSV line…" />
@@ -236,7 +251,8 @@
         </div>
       </div>
       <p id="modal-highlight-note" class="highlight-note" hidden></p>
-      <div class="table-wrap modal-table-wrap">
+      <div id="modal-record-view" class="record-inspect" hidden></div>
+      <div class="table-wrap modal-table-wrap" id="modal-table-wrap">
         <table>
           <thead id="modal-head"></thead>
           <tbody id="modal-body"></tbody>

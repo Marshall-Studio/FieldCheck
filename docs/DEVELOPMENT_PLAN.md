@@ -10,7 +10,8 @@
 
 - [x] Manually test sample workflow in browser; add tests for real defects (see QA_TEST_PLAN defect log). Additional Chrome/Brave/mobile cross-check still welcome.
 - [x] First-time usability redesign from creator review (U-01–U-05): dual workflows, previews, plain-language results, safe suggestions, local prefs.
-- [x] Second usability pass (U2-01–U2-09): file inspection, jump-to-record, clearer results/settings/next steps. Awaiting creator hands-on confirmation before deploy.
+- [x] Second usability pass (U2-01–U2-09): file inspection, jump-to-record, clearer results/settings/next steps.
+- [x] Third usability pass (U3-01–U3-07): reduce cognitive load, fix results scrolling, unify Inspect record, clarify CSV-table preview. Awaiting creator hands-on before deploy.
 - [ ] Confirm line numbers for multiline CSV edge cases; improve feedback if needed.
 - [ ] Validate a real *non-sensitive* operational dataset and document requirements.
 - [ ] Add automated accessibility and basic UI smoke tests if warranted.
