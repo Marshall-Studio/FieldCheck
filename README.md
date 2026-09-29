@@ -6,6 +6,23 @@
 
 FieldCheck helps you answer two practical questions: **What's wrong with this file?** and **What changed since the previous export?** It runs in your browser without an account. CSV contents are not uploaded to a FieldCheck server.
 
+## Screenshots
+
+FieldCheck works with CSV files locally in your browser. These images use the included fictional maintenance sample.
+
+![FieldCheck application overview and workflow selection](docs/screenshots/01-fieldcheck-overview.png)
+
+![Comparison showing added, removed, changed, and unchanged records](docs/screenshots/02-fieldcheck-comparison.png)
+
+![Validation findings for a missing property and invalid numeric cost](docs/screenshots/03-fieldcheck-validation.png)
+
+<details>
+<summary>View CSV preview</summary>
+
+![Earlier and newer CSV files shown in browser-local table previews](docs/screenshots/04-fieldcheck-csv-preview.png)
+
+</details>
+
 ## What you can do
 
 - Load a CSV and check for blank or duplicate IDs, missing required values, invalid numbers, and duplicate rows.
