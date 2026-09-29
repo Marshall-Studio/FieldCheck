@@ -74,6 +74,11 @@ Creator review U3-01–U3-07: preview wording, clutter, awkward results scrollin
 - Live QA: sample validation/compare, Inspect record, exports, theme toggle, Tally feedback, security headers; Web Analytics off.
 - README + CHANGELOG + `v1.0.0` release tag.
 
+## GitHub Actions deploy pipeline — 2026-09-28
+
+- Extended `.github/workflows/ci.yml`: PRs run typecheck/tests only; merges to `main` deploy `site/` to existing Pages project `fieldcheck` via `cloudflare/wrangler-action@v4`.
+- Uses repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` (never committed). Concurrency group prevents overlapping production deploys.
+
 ## Release / bug log template
 
 Date / release:
