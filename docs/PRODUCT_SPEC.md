@@ -19,7 +19,7 @@ People have an export and need a clear, reproducible answer to two questions: â€
 - Detects blank unique IDs, duplicate IDs, duplicate entire rows, missing selected required fields, and invalid selected numeric fields.
 - Comparison uses ID matching independent of row position and fails safely on duplicate or missing IDs.
 - Renders imported values as text, not HTML; exported values are guarded against spreadsheet formula injection.
-- Core file processing remains local in the browser. No sign-in or uploaded file storage. Optional host visit analytics are off by default and must not receive CSV contents if enabled later.
+- Core file processing remains local in the browser. No sign-in or uploaded file storage. Cloudflare's basic visit analytics may be enabled after manual release; FieldCheck sends no CSV contents, filenames, IDs, or analysis results as analytics events and does not track individual tool actions.
 - Tests run without external accounts; CI uses `npm ci` + `npm test`; sample data illustrates meaningful changes and errors.
 
 ## Intentional V1 limitations
@@ -33,7 +33,7 @@ People have an export and need a clear, reproducible answer to two questions: â€
 
 ## Privacy / security
 
-Files are processed in browser memory, not sent to FieldCheck. Optional `localStorage` may keep column preferences and theme choice â€” not CSV rows. No third-party analytics script is shipped in the first release HTML. The site is hosted as static content with Cloudflare Pages `_headers` (CSP and related defenses). Don't include CSV row data in bug reports. Input sizes are bounded; issue rendering is capped at 250 entries (complete export available). CSV report cells guard against spreadsheet formulas. See `docs/SECURITY_REVIEW.md`.
+Files are processed in browser memory, not sent to FieldCheck. Optional `localStorage` may keep column preferences and theme choice â€” not CSV rows. The updated release permits only Cloudflare's documented Web Analytics beacon in CSP, automatically injected by Cloudflare after activation; this is an additional third-party-script trust dependency and is not a file upload API. The site is hosted as static content with Cloudflare Pages `_headers` (CSP and related defenses). Don't include CSV row data in bug reports. Input sizes are bounded; issue rendering is capped at 250 entries (complete export available). CSV report cells guard against spreadsheet formulas. See `docs/SECURITY_REVIEW.md`.
 
 ## Future only if evidence justifies it
 

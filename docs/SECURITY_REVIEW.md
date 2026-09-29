@@ -37,7 +37,7 @@ This document records what was inspected, what was verified in code/tests/browse
 | S-02 | Medium | No production security headers | `_headers` for Cloudflare Pages (CSP, framing, nosniff, referrer, permissions, COOP); copied into `site/` on build; local `dev` server applies the same headers |
 | S-03 | Low | Formula guard missed NUL / some control prefixes | Tightened `safeCsvCell` |
 | S-04 | Low | Unbounded column-pref layouts in localStorage | Cap at 20 entries |
-| S-05 | Low | Privacy copy claimed “no analytics” while preparing host analytics | Docs/UI now describe browser-local files + optional host analytics (not enabled in shipped HTML) |
+| S-05 | Low | Privacy copy initially described analytics as optional | Launch update explicitly discloses Cloudflare site visit/performance analytics and preserves browser-local file handling |
 | S-06 | Low | Feedback Issues URL lacked templates / private vuln path | Issue templates + `SECURITY.md` + security advisory link |
 
 ### No exposed application secrets found
@@ -48,10 +48,10 @@ No API keys, Cloudflare tokens, `.env` files, or private keys were found in the 
 
 | ID | Severity | Residual risk | Notes |
 |---|---|---|---|
-| R-01 | Low | Maintainer email appears in Git commit metadata | Public git authorship, not an app secret; optional future identity hygiene |
+| R-01 | Low | Historical Git copies may retain previous author metadata | Reachable main history was rewritten to noreply; external caches/forks cannot be guaranteed erased |
 | R-02 | Medium | Browser memory can exceed the 8 MB file limit while parsing | Limit reduces risk but does not bound peak RAM; adversarial max-size files can still stress a tab |
 | R-03 | Low | Unicode / exotic spreadsheet formula markers may bypass prefix neutralization | Classic ASCII markers covered; exotic vectors remain a residual export risk |
-| R-04 | Medium | Enabling Cloudflare Web Analytics later requires CSP allowlisting | Shipped CSP is `'self'` only. Auto-injected Pages beacons can break CSP if analytics is turned on without updating `_headers` |
+| R-04 | Medium | Cloudflare Web Analytics adds a third-party script to the page | Launch CSP permits only Cloudflare's `beacon.min.js`; no additional off-origin `connect-src`. An allowed script can access page DOM, so inspect actual beacon requests; CSP is not an isolation boundary. |
 | R-05 | Low | Local preview CSP is only as strong as `scripts/dev.mjs` header application | Production enforcement depends on Cloudflare reading `site/_headers` |
 | R-06 | Info | License still unset | Legal/redistribution risk, not a runtime vuln |
 | R-07 | Low | Users can still paste confidential data into GitHub Issues | Templates warn; cannot prevent |
@@ -67,4 +67,4 @@ No API keys, Cloudflare tokens, `.env` files, or private keys were found in the 
 
 **Conditionally ready for a first public static release** after you review this report: browser-local processing model is intact, XSS/formula/CI/header baselines are documented and tested, and no leaked credentials were found. Remaining items are residual host/config risks (especially analytics vs CSP) and operational hygiene — not open critical flaws in the app code reviewed here.
 
-**Do not deploy until you approve.** After deploy, verify response headers on the live origin and confirm Web Analytics remains off unless `_headers` is intentionally updated.
+**Do not deploy without explicit approval.** For the launch analytics update, review and merge first, enable Web Analytics in the existing Cloudflare Pages project, manually trigger production release from `main`, and inspect response headers and beacon requests. Check that neither CSV values, filenames, record IDs, results, nor tool-use event data appear in analytics network traffic.
