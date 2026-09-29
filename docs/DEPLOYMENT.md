@@ -64,6 +64,8 @@ npx wrangler pages deploy site --project-name=fieldcheck --branch=main
 
 Prefer the GitHub Actions release workflow for production so the same tests run first.
 
+Confirm `site/_headers` is present in the build output (CSP, clickjacking protection, MIME sniffing protection, referrer policy).
+
 ### Optional Cloudflare Web Analytics (off by default)
 
 Web Analytics can be enabled later from the Cloudflare dashboard **without** collecting CSV contents (page metrics only). Do **not** paste an unverified beacon snippet into this repository.
