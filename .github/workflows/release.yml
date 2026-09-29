@@ -1,0 +1,62 @@
+name: FieldCheck production release
+
+# Production deploys are manual only. Do not trigger this from pushes or pull requests.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Require main branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: Refuse non-main releases
+        run: |
+          echo "Event: ${GITHUB_EVENT_NAME}"
+          echo "Ref: ${GITHUB_REF}"
+          if [ "${GITHUB_REF}" != "refs/heads/main" ]; then
+            echo "::error::Production release must be started from branch main (got ${GITHUB_REF}). Re-run the workflow with Branch set to main."
+            exit 1
+          fi
+
+  test:
+    name: Test and build
+    needs: guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm test
+
+  deploy:
+    name: Deploy to Cloudflare Pages
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    concurrency:
+      group: fieldcheck-pages-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: Publish site/ to existing Pages project
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy site --project-name=fieldcheck --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

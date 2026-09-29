@@ -79,6 +79,11 @@ Creator review U3-01–U3-07: preview wording, clutter, awkward results scrollin
 - Extended `.github/workflows/ci.yml`: PRs run typecheck/tests only; merges to `main` deploy `site/` to existing Pages project `fieldcheck` via `cloudflare/wrangler-action@v4`.
 - Uses repository secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` (never committed). Concurrency group prevents overlapping production deploys.
 
+## Manual production release policy — 2026-09-28
+
+- Removed automatic deploy-on-merge. `FieldCheck CI` only tests on PRs and `main` pushes.
+- Added `FieldCheck production release` (`workflow_dispatch`) which guards `main`, re-runs tests, then deploys to existing project `fieldcheck`.
+
 ## Release / bug log template
 
 Date / release:

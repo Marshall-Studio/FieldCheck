@@ -11,16 +11,25 @@ FieldCheck is a static website. After `npm run build`, publish the generated **`
 - **Initial release commit:** `a3ddaea`
 - **Web Analytics:** disabled for the initial release
 
-## Continuous deployment (GitHub Actions)
+## Release workflow (GitHub Actions)
 
-Automatic deploys use **Wrangler Direct Upload** to the existing Pages project (not a second Cloudflare Git integration).
+FieldCheck uses **manual production releases**. Merging to `main` never publishes the website by itself.
 
-| Event | What runs |
-|---|---|
-| Pull request | `npm ci`, typecheck, and tests only — **no deploy** |
-| Push / merge to `main` | Same checks, then `npm run build` and deploy `site/` to project `fieldcheck` |
+### Recommended process
 
-Workflow: `.github/workflows/ci.yml`
+1. Develop on a feature branch.
+2. Open a pull request — CI runs typecheck and tests (**no deploy**).
+3. Review and merge the PR into `main` — CI runs typecheck and tests again (**no deploy**).
+4. When you are ready to publish, manually run **FieldCheck production release** from branch `main` (Actions → workflow → Run workflow).
+
+### What each workflow does
+
+| Workflow | Trigger | Behavior |
+|---|---|---|
+| `FieldCheck CI` (`.github/workflows/ci.yml`) | Pull requests and pushes to `main` | `npm ci`, typecheck, tests only |
+| `FieldCheck production release` (`.github/workflows/release.yml`) | Manual **workflow_dispatch** only | Guards that the selected branch is `main`, re-runs tests, builds `site/`, deploys to existing Pages project `fieldcheck` |
+
+Deploys use **Wrangler Direct Upload** to the existing Pages project (not a second Cloudflare Git integration).
 
 Required repository secrets (Settings → Secrets and variables → Actions):
 
@@ -29,22 +38,23 @@ Required repository secrets (Settings → Secrets and variables → Actions):
 
 Never commit these values. Never print them in logs or documentation.
 
-Deployment settings encoded in the workflow:
+Deployment settings encoded in the release workflow:
 
 - **Build command:** `npm run build`
 - **Build output:** `site/`
 - **Node.js:** `22`
 - **Pages project:** `fieldcheck`
 - **Production branch flag:** `--branch=main`
+- **Branch guard:** refuses to deploy if the workflow is started on any branch other than `main`
 - **Overlap control:** concurrency group `fieldcheck-pages-production` with `cancel-in-progress: false` so production deploys queue instead of racing
 
 Action used: [`cloudflare/wrangler-action@v4`](https://github.com/cloudflare/wrangler-action).
 
-After merge to `main`, confirm the Actions run is green and https://fieldcheck-710.pages.dev/ still serves the expected build. Keep Cloudflare Web Analytics off unless CSP allowlists and privacy copy are updated together.
+After a manual release, confirm the Actions run is green and https://fieldcheck-710.pages.dev/ serves the expected build. Keep Cloudflare Web Analytics off unless CSP allowlists and privacy copy are updated together.
 
-## Manual / one-off deploy
+## Manual / one-off deploy (local machine)
 
-From a clean checkout on Node 22:
+From a clean checkout of `main` on Node 22:
 
 ```bash
 npm ci
@@ -52,7 +62,7 @@ npm run build
 npx wrangler pages deploy site --project-name=fieldcheck --branch=main
 ```
 
-Confirm `site/_headers` is present in the build output (CSP, clickjacking protection, MIME sniffing protection, referrer policy).
+Prefer the GitHub Actions release workflow for production so the same tests run first.
 
 ### Optional Cloudflare Web Analytics (off by default)
 
@@ -85,7 +95,7 @@ Until those steps are done, keep analytics **off**. A strict `'self'` CSP is int
 - [x] README links to the live URL once it exists.
 - [x] Review `docs/SECURITY_REVIEW.md` and confirm residual risks are acceptable.
 - [x] Confirm commit authorship uses a GitHub `noreply` address for future commits (see privacy notes in the latest project log).
-- [ ] GitHub Actions auto-deploy to existing `fieldcheck` project verified after merge to `main`.
+- [ ] Manual production release via Actions **FieldCheck production release** (workflow_dispatch from `main`) verified when publishing.
 
 ## Connecting the Tally feedback form
 
