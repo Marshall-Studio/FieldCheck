@@ -19,7 +19,6 @@
 | QA-19 | Security headers on built site | `_headers` present with CSP, DENY framing, nosniff, referrer | Pass — local build + header tests |
 | QA-20 | Theme storage isolation | Theme key stores only light/dark — never CSV contents | Pass |
 | QA-21 | Public feedback control | Single Send feedback opens https://tally.so/r/68aLbP in a new tab; no Issues/vuln buttons | Pass — Tally connected |
-
 | QA-22 | Live Cloudflare analytics after manual CSP release | `rum` beacon request succeeds and dashboard registers test visit | Pass — Chrome Incognito XHR HTTP 204, Cloudflare showed 1 page view on 2026-09-29; payload audit remains separate |
 
 Note: The default sample supports both validation and comparison; maintenance-errors.csv demonstrates why an ambiguous duplicate key must block reconciliation.
