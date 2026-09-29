@@ -9,7 +9,7 @@ FieldCheck is a static website. After `npm run build`, publish the generated **`
 - **Project:** `fieldcheck` (reuse this project — do not create a second one)
 - **Production branch setting:** `main`
 - **Initial release commit:** `a3ddaea`
-- **Web Analytics:** disabled for the initial release
+- **Web Analytics:** disabled for initial V1; activated for launch only after the reviewed CSP/privacy update and manual production release
 
 ## Release workflow (GitHub Actions)
 
@@ -50,7 +50,7 @@ Deployment settings encoded in the release workflow:
 
 Action used: [`cloudflare/wrangler-action@v4`](https://github.com/cloudflare/wrangler-action).
 
-After a manual release, confirm the Actions run is green and https://fieldcheck-710.pages.dev/ serves the expected build. Keep Cloudflare Web Analytics off unless CSP allowlists and privacy copy are updated together.
+After a manual release, confirm the Actions run is green and https://fieldcheck-710.pages.dev/ serves the expected build. Enable Cloudflare Web Analytics only with the reviewed CSP allowlist and matching public privacy copy.
 
 ## Manual / one-off deploy (local machine)
 
@@ -66,18 +66,23 @@ Prefer the GitHub Actions release workflow for production so the same tests run 
 
 Confirm `site/_headers` is present in the build output (CSP, clickjacking protection, MIME sniffing protection, referrer policy).
 
-### Optional Cloudflare Web Analytics (off by default)
+### Cloudflare Web Analytics — basic traffic only
 
-Web Analytics can be enabled later from the Cloudflare dashboard **without** collecting CSV contents (page metrics only). Do **not** paste an unverified beacon snippet into this repository.
+The updated build permits only `https://static.cloudflareinsights.com/beacon.min.js` in CSP `script-src` in addition to `'self'`. It preserves `connect-src 'self'` for Cloudflare's automatic, same-origin `/cdn-cgi/rum` reporting endpoint. All other CSP restrictions are unchanged. Cloudflare injects its beacon into the HTML at the edge after Web Analytics is enabled for this existing Pages project; no manual snippet or token is committed to the app.
 
-Before enabling analytics:
+This records site visits, referrer/device/browser/approximate location, and page performance. It does **not** count CSV selections, validation runs, comparisons, or actual tool users. FieldCheck does not send filenames, CSV contents, row IDs, or results as analytics events. Enabling a third-party script is a trust dependency; examine its real network activity and never claim that CSP isolates that script from the DOM.
 
-1. Decide whether Cloudflare will auto-inject the beacon for Pages.
-2. Update `site/_headers` CSP to allow `https://static.cloudflareinsights.com` in `script-src` and the appropriate `connect-src` endpoint documented by Cloudflare.
-3. Rebuild, redeploy, and verify the console shows no CSP violations.
-4. Update the public privacy copy in `README.md` / the in-app Privacy details to state that privacy-friendly visit analytics are on.
+**Activation order (manual release policy stays intact):**
 
-Until those steps are done, keep analytics **off**. A strict `'self'` CSP is intentional for the first release.
+1. Review and merge the analytics/privacy PR after CI succeeds. A merge runs checks only.
+2. In Cloudflare: Workers & Pages → `fieldcheck` → Metrics → Enable Web Analytics. Select the existing project, not a new site or project. Cloudflare's documented Pages setup injects its snippet on the **next deployment**.
+3. Manually run GitHub Actions → FieldCheck production release → Run workflow from `main`. Never trigger a release just by merging.
+4. Verify the live response headers contain the precise beacon CSP allowance; browser DevTools should show `static.cloudflareinsights.com/beacon.min.js` and a `POST /cdn-cgi/rum`, with no CSP violations. Check the beacon payload/requests for absence of filenames, CSV data, record IDs, results, or app-specific events. Verify page visits eventually appear in Cloudflare Web Analytics. Some ad blockers, including Brave Shields, may block the beacon, so use a clean browser profile for this check.
+5. Confirm the homepage, maintenance workflow, theme, security headers, and external Tally feedback form still work in an incognito window.
+
+If analytics injection does not work, do not weaken CSP broadly or add a duplicate script. Check the dashboard setting and latest deployment. To disable analytics, disable it in Cloudflare; remove the CSP exception in a separate reviewed release if no longer needed.
+
+Official setup: https://developers.cloudflare.com/pages/how-to/web-analytics/ ; CSP details: https://developers.cloudflare.com/web-analytics/faq/.
 
 ### GitHub Pages (alternative host)
 
