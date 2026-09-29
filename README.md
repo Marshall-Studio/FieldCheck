@@ -55,7 +55,7 @@ GitHub Issue templates remain available for maintainers and contributors inspect
 
 ## Privacy and security
 
-FieldCheck processes imported files in browser memory. It does not require sign-in or send CSV contents to a FieldCheck API. Optional browser storage remembers column-check preferences and your light/dark theme choice only — never spreadsheet rows. The linked Tally feedback form receives only form-field answers (optional reply email if provided) — not uploaded spreadsheets. Optional host-level privacy-friendly visit analytics may be enabled later; they are **not** embedded in this release. Downloaded reports guard against spreadsheet formula interpretation, and imported text is rendered as text instead of HTML.
+FieldCheck processes imported files in browser memory. It does not require sign-in or send CSV contents to a FieldCheck API. Optional browser storage remembers column-check preferences and your light/dark theme choice only — never spreadsheet rows. The linked Tally feedback form receives only form-field answers (optional reply email if provided) — not uploaded spreadsheets. Cloudflare Web Analytics is enabled for the updated public release to measure site visits, referral sources, and page performance. Cloudflare automatically injects its beacon; FieldCheck does not send CSV contents, filenames, record IDs, or validation/comparison results to analytics. No individual file selections or check/compare actions are counted. Downloaded reports guard against spreadsheet formula interpretation, and imported text is rendered as text instead of HTML.
 
 See [docs/SECURITY_REVIEW.md](docs/SECURITY_REVIEW.md) for the pre-release security review notes.
 
