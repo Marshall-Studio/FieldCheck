@@ -51,7 +51,7 @@ No API keys, Cloudflare tokens, `.env` files, or private keys were found in the 
 | R-01 | Low | Historical Git copies may retain previous author metadata | Reachable main history was rewritten to noreply; external caches/forks cannot be guaranteed erased |
 | R-02 | Medium | Browser memory can exceed the 8 MB file limit while parsing | Limit reduces risk but does not bound peak RAM; adversarial max-size files can still stress a tab |
 | R-03 | Low | Unicode / exotic spreadsheet formula markers may bypass prefix neutralization | Classic ASCII markers covered; exotic vectors remain a residual export risk |
-| R-04 | Medium | Cloudflare Web Analytics adds a third-party script to the page | Launch CSP permits only Cloudflare's `beacon.min.js`; no additional off-origin `connect-src`. An allowed script can access page DOM, so inspect actual beacon requests; CSP is not an isolation boundary. |
+| R-04 | Medium | Cloudflare Web Analytics adds a third-party script and off-origin reporting | Launch CSP permits only Cloudflare's `beacon.min.js` and the observed `https://cloudflareinsights.com` reporting origin in `connect-src`, alongside `'self'`. The earlier same-origin-only policy blocked live reports; a user-supplied Chrome Console screenshot established the actual destination. An allowed script can access page DOM, so inspect actual beacon requests; CSP is not an isolation boundary. |
 | R-05 | Low | Local preview CSP is only as strong as `scripts/dev.mjs` header application | Production enforcement depends on Cloudflare reading `site/_headers` |
 | R-06 | Info | License still unset | Legal/redistribution risk, not a runtime vuln |
 | R-07 | Low | Users can still paste confidential data into GitHub Issues | Templates warn; cannot prevent |

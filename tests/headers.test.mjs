@@ -15,10 +15,10 @@ test('built site includes Cloudflare Pages _headers with CSP and framing defense
   assert.match(text, /X-Frame-Options: DENY/);
   assert.match(text, /X-Content-Type-Options: nosniff/);
   assert.match(text, /Referrer-Policy:/);
-  // Limit third-party scripts to Cloudflare's Web Analytics beacon; beacon reporting stays same-origin.
+  // Limit third-party scripts to Cloudflare's Web Analytics beacon and permit its observed reporting origin.
   assert.match(text, /script-src 'self' https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js;/);
-  assert.match(text, /connect-src 'self';/);
-  assert.doesNotMatch(text, /connect-src[^\n]*cloudflareinsights/);
+  assert.match(text, /connect-src 'self' https:\/\/cloudflareinsights\.com;/);
+  assert.doesNotMatch(text, /connect-src[^\n]*\*/);
   assert.doesNotMatch(text, /'unsafe-inline'|'unsafe-eval'/);
 });
 
