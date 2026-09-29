@@ -42,3 +42,17 @@ test('preview pagination and search locate WO-1007 without loading every row at 
   assert.equal(slicePage(dataset.rows, 2).length, PREVIEW_PAGE_SIZE);
   assert.equal(findRowByRecordId(dataset, 'id', 'WO-40')?.values.name, 'value');
 });
+
+test('maps findings after a multiline cell to physical CSV line and data-row number', () => {
+ const csv = 'id,note,qty\r\nA,"first\r\nsecond",2\r\nB,"more\nlines",oops\r\n';
+ const dataset = parseCsv(csv, 'multiline.csv');
+ const result = validate(dataset, { keyColumn: 'id', numericColumns: ['qty'] });
+ assert.equal(result.issues.length, 1);
+ const finding = findingContext(dataset, result.issues[0], 'id');
+ assert.equal(finding.fileName, 'multiline.csv');
+ assert.equal(finding.recordId, 'B');
+ assert.equal(finding.csvLine, 4);
+ assert.equal(finding.dataRowNumber, 2);
+ assert.equal(finding.column, 'qty');
+ assert.equal(finding.value, 'oops');
+});
