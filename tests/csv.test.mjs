@@ -21,3 +21,17 @@ test('protects CSV output from spreadsheet-formula injection',()=>{
  assert.match(csv,/"'-10"/);
  assert.match(csv,/"'\u0000=cmd"/);
 });
+
+test('tracks physical CSV line numbers after multiline quoted cells', () => {
+ const csv = 'id,note,qty\r\nA,"first\r\nsecond",2\r\nB,"more\nlines",oops\r\nC,plain,3\r\n';
+ const d = parseCsv(csv, 'multiline.csv');
+ assert.deepEqual(d.rows.map(row => row.line), [2, 4, 6]);
+ assert.equal(d.rows[0].values.note, 'first\nsecond');
+ assert.equal(d.rows[1].values.note, 'more\nlines');
+ assert.equal(d.rows[2].values.id, 'C');
+});
+
+test('reports the starting physical line for malformed rows following multiline cells', () => {
+ const csv = 'id,note\r\nA,"first\r\nsecond"\r\nB,one,two\r\n';
+ assert.throws(() => parseCsv(csv), /Line 4: found 3 columns; expected 2\./);
+});
