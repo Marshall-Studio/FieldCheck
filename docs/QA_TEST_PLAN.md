@@ -21,7 +21,7 @@
 | QA-21 | Public feedback control | Single Send feedback opens https://tally.so/r/68aLbP in a new tab; no Issues/vuln buttons | Pass — Tally connected |
 | QA-22 | Live Cloudflare analytics after manual CSP release | `rum` beacon request succeeds and dashboard registers test visit | Pass — Chrome Incognito XHR HTTP 204, Cloudflare showed 1 page view on 2026-09-29; payload audit remains separate |
 
-| QA-23 | CSV records following quoted multiline cells (CRLF and LF) | Parser reports starting physical CSV line; findings also show the correct data-row number; malformed row errors identify their physical starting line | Automated regression cases added; CI pending |
+| QA-23 | CSV records following quoted multiline cells (CRLF and LF) | Parser reports starting physical CSV line; findings also show the correct data-row number; malformed row errors identify their physical starting line | Regression coverage in `tests/csv.test.mjs` and `tests/inspect.test.mjs`; see PR #7 checks |
 
 Note: The default sample supports both validation and comparison; maintenance-errors.csv demonstrates why an ambiguous duplicate key must block reconciliation.
 
