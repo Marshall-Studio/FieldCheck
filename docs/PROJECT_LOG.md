@@ -84,6 +84,13 @@ Creator review U3-01–U3-07: preview wording, clutter, awkward results scrollin
 - Removed automatic deploy-on-merge. `FieldCheck CI` only tests on PRs and `main` pushes.
 - Added `FieldCheck production release` (`workflow_dispatch`) which guards `main`, re-runs tests, then deploys to existing project `fieldcheck`.
 
+## Cloudflare Analytics CSP incident resolved — 2026-09-29
+
+- Production Web Analytics beacon loaded but Chrome showed its `https://cloudflareinsights.com/cdn-cgi/rum` request blocked by `connect-src 'self'`; the dashboard remained at zero visits.
+- PR #5 added only the observed reporting origin to `connect-src`, retaining the specific Cloudflare beacon allowance and all other CSP restrictions. The fix was merged to `main` and the manual production release was run.
+- Creator verified a Chrome Incognito Network request named `rum`, initiated by `beacon.min.js`, returned HTTP 204. Cloudflare Web Analytics subsequently displayed 1 page view. This was a controlled smoke-test view, **not** an external user or product-adoption measurement.
+- The screenshot confirms delivery and dashboard reporting, not a complete audit of all beacon payloads; keep the separate privacy/network-payload check in the deployment checklist.
+
 ## Release / bug log template
 
 Date / release:
