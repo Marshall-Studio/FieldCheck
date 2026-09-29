@@ -2,6 +2,8 @@
 
 **A free, local-first tool for checking CSV data and comparing exports.**
 
+**Live website:** [https://fieldcheck-710.pages.dev/](https://fieldcheck-710.pages.dev/)
+
 FieldCheck helps you answer two practical questions: **What's wrong with this file?** and **What changed since the previous export?** It runs in your browser without an account. CSV contents are not uploaded to a FieldCheck server.
 
 ## What you can do

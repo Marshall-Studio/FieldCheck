@@ -68,6 +68,12 @@ Creator review U3-01–U3-07: preview wording, clutter, awkward results scrollin
 - Repo-local Git author set to GitHub noreply for future commits (history not rewritten).
 - Not deployed — Cloudflare Pages release still awaiting final approval.
 
+## First public deployment — 2026-09-28
+
+- Cloudflare Pages project `fieldcheck` live at https://fieldcheck-710.pages.dev/ (Direct Upload from `a3ddaea`, production branch `main`).
+- Live QA: sample validation/compare, Inspect record, exports, theme toggle, Tally feedback, security headers; Web Analytics off.
+- README + CHANGELOG + `v1.0.0` release tag.
+
 ## Release / bug log template
 
 Date / release:

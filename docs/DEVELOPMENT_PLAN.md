@@ -22,11 +22,11 @@
 ## Phase 2 — Public release
 
 - [x] GitHub repo created; CI workflow present.
-- [ ] Clean README screenshots/GIF, changelog, release tag.
+- [x] Clean README with live URL, changelog, and `v1.0.0` release tag.
 - [x] Turn on website Send feedback (Tally URL https://tally.so/r/68aLbP in `src/feedback.ts`).
 - [x] Set up GitHub Actions for `npm ci` + typecheck + `npm test` with `contents: read`.
 - [x] Document Cloudflare Pages headers / optional Web Analytics enablement path (`docs/DEPLOYMENT.md`, `docs/SECURITY_REVIEW.md`).
-- [ ] Deploy `site/` as a static website; verify a real browser can load it (guide in `docs/DEPLOYMENT.md` — not deployed yet).
+- [x] Deploy `site/` as a static website; verify a real browser can load it (https://fieldcheck-710.pages.dev/).
 - [ ] Record only observed outcomes: tests, real usage and reported feedback. Never invent metrics.
 
 ## Phase 3 — Technical walkthrough and maintainability

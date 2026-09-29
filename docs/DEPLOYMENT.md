@@ -1,19 +1,34 @@
-# Deployment (prepared, not yet live)
+# Deployment
 
-FieldCheck is a static website. After `npm run build`, publish the generated **`site/`** folder. Source files stay in Git; `site/` is gitignored and rebuilt in CI or before deploy.
+FieldCheck is a static website. After `npm run build`, publish the generated **`site/`** folder. Source files stay in Git; `site/` is gitignored and rebuilt before deploy.
+
+## Live production
+
+- **URL:** https://fieldcheck-710.pages.dev/
+- **Host:** Cloudflare Pages (free plan)
+- **Project:** `fieldcheck`
+- **Production branch setting:** `main`
+- **Initial release commit:** `a3ddaea`
+- **Web Analytics:** disabled for the initial release
 
 ## Recommended free hosts
 
 ### Cloudflare Pages (recommended)
 
+**Initial V1 deploy used Wrangler Direct Upload** of the local `site/` build (Node 22, `npm run build`) so the cleaned Git history stayed intact.
+
+To connect continuous Git builds later (optional):
+
 1. Sign in at [Cloudflare Pages](https://pages.cloudflare.com/).
-2. Create a project connected to `Marshall-Studio/FieldCheck`.
+2. Connect `Marshall-Studio/FieldCheck` to the existing `fieldcheck` project (or create a Git-linked project).
 3. Build settings:
-   - **Build command:** `npm ci && npm run build`
+   - **Build command:** `npm run build`
    - **Build output directory:** `site`
    - **Node version:** `22`
-4. Confirm `site/_headers` is present in the build output (security headers for CSP, clickjacking protection, MIME sniffing protection, referrer policy).
-5. Deploy. Confirm `https://<your-project>.pages.dev` loads, sample data works, response headers match `_headers`, and **Send feedback** opens https://tally.so/r/68aLbP.
+   - **Production branch:** `main`
+4. Keep Web Analytics off unless CSP allowlists and privacy copy are updated together.
+
+Confirm `site/_headers` is present in the build output (CSP, clickjacking protection, MIME sniffing protection, referrer policy).
 
 #### Optional Cloudflare Web Analytics (off by default)
 
@@ -37,21 +52,19 @@ Until those steps are done, keep analytics **off**. A strict `'self'` CSP is int
 
 ## Pre-launch checklist
 
-- [ ] Manual sample QA still passes on the public URL (validation + comparison + exports + light/dark).
-- [ ] Live response includes CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and a referrer policy.
+- [x] Manual sample QA still passes on the public URL (validation + comparison + exports + light/dark).
+- [x] Live response includes CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, and a referrer policy.
 - [x] Feedback: `FEEDBACK_FORM_URL` set to https://tally.so/r/68aLbP; **Send feedback** opens the form; privacy copy names Tally.
 - [x] Feedback link opens the Tally form (not GitHub Issues); no vulnerability button on the public site.
-- [ ] Web Analytics remains off unless CSP and privacy copy were updated together.
-- [ ] No accounts, databases, paid APIs, or file-upload backend were added.
-- [ ] README links to the live URL once it exists.
-- [ ] Review `docs/SECURITY_REVIEW.md` and confirm residual risks are acceptable.
-- [ ] Confirm commit authorship uses a GitHub `noreply` address for future commits (see privacy notes in the latest project log).
-
-Do not claim a public site is live until this checklist is verified in a real browser.
+- [x] Web Analytics remains off unless CSP and privacy copy were updated together.
+- [x] No accounts, databases, paid APIs, or file-upload backend were added.
+- [x] README links to the live URL once it exists.
+- [x] Review `docs/SECURITY_REVIEW.md` and confirm residual risks are acceptable.
+- [x] Confirm commit authorship uses a GitHub `noreply` address for future commits (see privacy notes in the latest project log).
 
 ## Connecting the Tally feedback form
 
-Connected for release candidate: `FEEDBACK_FORM_URL` = `https://tally.so/r/68aLbP` in `src/feedback.ts` (plain external link; no embed script).
+Connected for release: `FEEDBACK_FORM_URL` = `https://tally.so/r/68aLbP` in `src/feedback.ts` (plain external link; no embed script).
 
 Expected Tally fields: Feedback type (Bug report / Feature idea / Other), required Description, optional Email for replies only, no mandatory sign-in, no spreadsheet upload.
 
